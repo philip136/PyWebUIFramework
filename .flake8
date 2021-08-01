@@ -1,0 +1,11 @@
+[flake8] 
+
+ignore =
+    # Exclude error D100 Missing docstring in public module
+    D100,
+    # Exclude error D104 Missing docstring in public package
+    D104,
+    # Exclude error D102 Missing docstring in public method
+    D102
+
+max-line-length = 120
