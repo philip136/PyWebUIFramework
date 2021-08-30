@@ -1,16 +1,29 @@
-from utilities.config_file import ConfigFile
-from driver_settings.driver_settings_factory import DriverSettingsFactory
+from dependency_injector.wiring import inject, Provide
+from application.ioc_config_container import IocConfigContainer
 
 
 class BrowserProfile:
-    __settings_file = ConfigFile.read_from_json_file()
+    @inject
+    def __init__(self, driver_settings, config_data=Provide[IocConfigContainer.config_file],
+                 logger=Provide[IocConfigContainer.logger]):
+        self._driver_settings = driver_settings
+        self._config_data = config_data
+        self._logger = logger
 
-    @classmethod
-    def get_driver_settings(cls):
-        """Get driver settings with capabilities, options and preferences.
+    @property
+    def driver_settings(self):
+        return self._driver_settings
 
-        :rtype: DriverSettings.
+    @property
+    def browser_name(self):
+        return self._config_data['browserName'].lower()
 
-        """
-        browser_name = cls.__settings_file['browserName'].upper()
-        return DriverSettingsFactory.get_driver_settings(browser_name=browser_name)
+    def is_remote(self):
+        browser_is_remote = self._config_data['isRemote']
+        self._logger.info(f'Browser is remote: {browser_is_remote}')
+        return browser_is_remote
+
+    def get_remote_connection_url(self):
+        connection_url = self._config_data['remoteConnectionUrl']
+        self._logger.info(f'Remote connection url: {connection_url}')
+        return connection_url

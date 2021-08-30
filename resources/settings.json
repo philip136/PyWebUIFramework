@@ -1,5 +1,9 @@
 {
-  "browserName": "firefox",
+  "browserName" : "chrome",
+  "isRemote": false,
+  "remoteConnectionUrl": "http://localhost:4444/wd/hub",
+  "isElementHighlightEnabled" : true,
+
   "driverSettings": {
     "chrome": {
       "webDriverVersion": "latest",
@@ -7,7 +11,7 @@
         "enableVNC": true
       },
       "options": {
-        "intl.accept_languages": "de",
+        "intl.accept_languages": "en",
         "safebrowsing.enabled": "true",
         "profile.default_content_settings.popups": "0",
         "disable-popup-blocking": "true",
@@ -23,7 +27,7 @@
         "enableVNC": true
       },
       "options": {
-        "intl.accept_languages": "fr",
+        "intl.accept_languages": "en",
         "browser.download.dir": "//home//selenium//downloads",
         "browser.download.folderList": 2,
         "browser.helperApps.neverAsk.saveToDisk": "application/octet-stream, application/x-debian-package, application/x-www-form-urlencod, application/json, application/x-compressed, application/x-zip-compressed, application/zip, multipart/x-zip, text/plain, text/csv",
@@ -38,6 +42,35 @@
         "browser.download.panel.shown": false
       },
       "startArguments": []
+    },
+    "iexplorer": {
+      "webDriverVersion": "latest",
+      "systemArchitecture": "X32",
+      "capabilities": {
+        "ignoreProtectedModeSettings": true
+      }
+    },
+    "safari": {
+      "downloadDir": "/Users/username/Downloads"
     }
+  },
+  "timeouts": {
+    "timeoutImplicit" : 0,
+    "timeoutCondition" : 30,
+    "timeoutScript" : 10,
+    "timeoutPageLoad" : 15,
+    "timeoutPollingInterval": 10,
+    "timeoutCommand":120
+  },
+  "retry": {
+    "number": 2,
+    "pollingInterval": 300
+  },
+  "logger": {
+    "language": "en",
+    "logPageSource": true
+  },
+  "elementCache": {
+    "isEnabled": false
   }
 }

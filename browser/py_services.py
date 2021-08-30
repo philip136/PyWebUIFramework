@@ -1,18 +1,25 @@
-from browser.browser_factory import BrowserFactory
-from utilities.config_file import ConfigFile
+from application.ioc_application_container import IoCApplicationContainer
 
 
 class PyServices:
-    """Class from which you need to work with WebUIFramework."""
-
-    __settings_file = ConfigFile.read_from_json_file()
-    __browser_instance = None
+    __ioc_container = IoCApplicationContainer
 
     @classmethod
     def get_browser(cls):
-        """Get browser instance.
+        return cls.__ioc_container.browser()
 
-        :return: Browser instance.
-        """
-        cls.__browser_instance = BrowserFactory.get_browser_instance(browser_name=cls.__settings_file['browserName'])
-        return cls.__browser_instance
+    @classmethod
+    def get_element_factory(cls):
+        return cls.__ioc_container.element_factory()
+
+    @classmethod
+    def get_element_finder(cls):
+        return cls.__ioc_container.element_finder()
+
+    @classmethod
+    def get_logger(cls):
+        return cls.__ioc_container.logger()
+
+    @classmethod
+    def get_config_data(cls):
+        return cls.__ioc_container.config_data
