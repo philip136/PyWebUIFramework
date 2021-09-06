@@ -1,5 +1,5 @@
-from abc import ABC, abstractmethod
 from logging import Logger
+from abc import ABC, abstractmethod
 
 from injector import inject
 from core.localization.managers.base_localization_manager import BaseLocalizationManager
@@ -13,8 +13,8 @@ class BaseLocalizedLogger(ABC):
     def __init__(self, localization_manager: BaseLocalizationManager, logger: Logger,
                  configuration: BaseLoggerConfiguration) -> None:
         """Initialize with localization manager and logger."""
-        self.__localization_manager = localization_manager
-        self.__configuration = configuration
+        self._localization_manager = localization_manager
+        self._configuration = configuration
         self._logger = logger
 
     @abstractmethod
@@ -32,7 +32,7 @@ class BaseLocalizedLogger(ABC):
     @property
     def configuration(self) -> BaseLoggerConfiguration:
         """Get logger configuration."""
-        return self.__configuration
+        return self._configuration
 
     @abstractmethod
     def info(self, message_key: str, *message_args, **logger_kwargs) -> None:

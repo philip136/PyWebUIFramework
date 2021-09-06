@@ -1,12 +1,14 @@
 from abc import ABC, abstractmethod
 from datetime import timedelta
 
+from injector import inject
 from core.utilities.base_settings_file import BaseSettingsFile
 
 
 class BaseRetryConfiguration(ABC):
     """Describes retry configuration."""
 
+    @inject
     def __init__(self, settings_file: BaseSettingsFile):
         self._settings_file = settings_file
 

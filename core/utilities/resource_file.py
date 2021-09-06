@@ -9,7 +9,7 @@ class ResourceFile:
 
     def __init__(self, resource_name: str, root_dir: ty.Optional[str] = None):
         self.__resource_name = resource_name
-        self.__root_dir = root_dir
+        self.__root_dir = ROOT_DIR if root_dir is None else root_dir
         self.__path_to_file = self.get_resource_path(resource_name)
 
     def get_resource_path(self, resource_name: str):
@@ -19,11 +19,10 @@ class ResourceFile:
         :return: Path to resource.
         :rtype: Path.
         """
-        root = ROOT_DIR if self.__root_dir is None else self.__root_dir
-        return os.path.join(root, 'resources', resource_name)
+        return os.path.join(self.__root_dir, 'resources', resource_name)
 
     @property
-    def is_exist(self) -> bool:
+    def exist(self) -> bool:
         """Check resource file exist or not.
         :return: Boolean value.
         :rtype: bool.
@@ -36,7 +35,7 @@ class ResourceFile:
         :return: File content as string.
         :rtype: str.
         """
-        with open(self.__path_to_file, 'r') as file_data:
+        with open(self.__path_to_file, mode='r', encoding='utf-8') as file_data:
             return file_data.read()
 
     @property

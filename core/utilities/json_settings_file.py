@@ -1,5 +1,6 @@
 import os
 import json
+from loguru import logger
 import typing as ty
 
 from jsonpath_ng import DatumInContext
@@ -11,7 +12,6 @@ from core.utilities.resource_file import ResourceFile
 
 class JsonSettingsFile(BaseSettingsFile):
     """Class which defines work with .json settings file."""
-    __resource_path = None
 
     def __init__(self, resource_name: str, root_dir: str = None):
         self.__resource_file = ResourceFile(resource_name, root_dir)
@@ -23,7 +23,14 @@ class JsonSettingsFile(BaseSettingsFile):
 
     @staticmethod
     def __get_env_value(json_path: str) -> ty.Optional[str]:
-        return os.getenv(json_path)
+        """Try to get variable from environment.
+        :return: None or variable from environment.
+        :rtype: Optional[str].
+        """
+        env_var = os.getenv(json_path)
+        if env_var:
+            logger.debug('Using variable passed from environment %s=%s' % (json_path, env_var))
+        return env_var
 
     def __get_json_node(self, json_path: str, raise_exception_if_empty: bool):
         node = parse(f'$.{json_path}').find(self.__content)

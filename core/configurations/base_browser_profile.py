@@ -15,12 +15,15 @@ class BaseBrowserProfile(ABC):
     def settings_file(self):
         return self.__settings_file
 
-    def get_browser_name(self) -> str:
+    @property
+    def browser_name(self) -> str:
         return self.__settings_file.get_value('browserName').lower()
 
+    @property
     def is_remote(self) -> bool:
         return self.__settings_file.get_value('isRemote')
 
+    @property
     def is_element_highlight_enabled(self) -> bool:
         return self.__settings_file.get_value('isElementHighlightEnabled')
 

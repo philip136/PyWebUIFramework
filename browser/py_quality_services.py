@@ -1,5 +1,4 @@
 import typing as ty
-from injector import Injector
 from threading import local
 
 from browser.browser import Browser
@@ -9,17 +8,20 @@ from browser.local_browser_factory import LocalBrowserFactory
 from configuration.browser_profile import BrowserProfile
 from core.applications.quality_services import QualityServices
 from core.waitings.conditional_wait import ConditionalWait
+from elements.element_factory import ElementFactory
 from core.localization.loggers.base_localized_logger import BaseLocalizedLogger
 
 T = ty.TypeVar('T', bound=QualityServices)
 BF = ty.TypeVar('BF', bound=BrowserFactory)
 
+LOCAL = local()
+
 
 class PyQualityServices(QualityServices):
-    def __init__(self, browser_module=None) -> None:
+    def __init__(self) -> None:
         """Create BrowserModule which bound main objects."""
-        service_module = BrowserModule(self.get_browser) if browser_module is None else browser_module
-        super(PyQualityServices, self).__init__(application_provider=self.get_browser, services_module=service_module)
+        service_module = BrowserModule(self.get_browser)
+        super(PyQualityServices, self).__init__(application_provider=self.get_browser, service_module=service_module)
 
     @classmethod
     def get_browser(cls) -> Browser:
@@ -27,7 +29,7 @@ class PyQualityServices(QualityServices):
         :return: Browser instance.
         :rtype: Browser.
         """
-        return cls.get_instance().get_app(application=cls.__start_browser())
+        return cls.get_instance().get_app(cls.__start_browser)
 
     @classmethod
     def __start_browser(cls) -> Browser:
@@ -63,14 +65,12 @@ class PyQualityServices(QualityServices):
         :return: Get or create current class.
         :rtype: T.
         """
-        if getattr(cls, '_instance_container', None) is None:
-            local_storage = local()
-            setattr(local_storage, cls.__name__, cls)
-            cls._instance_container = getattr(local_storage, cls.__name__)
-        return cls._instance_container(browser_module)
+        if getattr(LOCAL, '_instance_container', None) is None:
+            setattr(LOCAL, '_instance_container', cls())
+        return getattr(LOCAL, '_instance_container')
 
     @classmethod
-    def get_service_provider(cls) -> Injector:
+    def get_service_provider(cls):
         """Get injector instance.
         :return: Injector object.
         :rtype: Injector.
@@ -92,6 +92,10 @@ class PyQualityServices(QualityServices):
         :rtype: LocalBrowserFactory.
         """
         return cls.get(LocalBrowserFactory)
+
+    @classmethod
+    def get_element_factory(cls):
+        return cls.get(ElementFactory)
 
     @classmethod
     def get_browser_profile(cls) -> BrowserProfile:

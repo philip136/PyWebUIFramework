@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from core.configurations.base_retry_configuration import BaseRetryConfiguration
 
 
@@ -13,10 +11,9 @@ class RetryConfiguration(BaseRetryConfiguration):
         return int(self._settings_file.get_value('retry.number'))
 
     @property
-    def polling_interval(self) -> timedelta:
+    def polling_interval(self) -> int:
         """Get the polling interval used in retry.
         :return: Timedelta for polling interval.
         :rtype: timedelta.
         """
-        config_value = self._settings_file.get_value('retry.pollingInterval')
-        return timedelta(milliseconds=config_value)
+        return self._settings_file.get_value('retry.pollingInterval')
