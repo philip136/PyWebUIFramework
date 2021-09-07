@@ -10,9 +10,9 @@ class BaseElementStateProvider(ABC):
     def __init__(self, element_locator: ty.Tuple[By, str], conditional_wait: BaseConditionalWait,
                  element_finder: BaseElementFinder):
         """Initialize provider with required dependencies."""
-        self.__element_locator = element_locator
-        self.__conditional_wait = conditional_wait
-        self.__element_finder = element_finder
+        self._element_locator = element_locator
+        self._conditional_wait = conditional_wait
+        self._element_finder = element_finder
 
     @property
     def is_displayed(self) -> bool:

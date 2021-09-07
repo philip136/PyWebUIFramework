@@ -30,6 +30,10 @@ class BaseLocalizedLogger(ABC):
         pass
 
     @property
+    def localization_manager(self):
+        return self._localization_manager
+
+    @property
     def configuration(self) -> BaseLoggerConfiguration:
         """Get logger configuration."""
         return self._configuration

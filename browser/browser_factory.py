@@ -4,15 +4,15 @@ from injector import inject
 from browser.browser import Browser
 from configuration.browser_profile import BrowserProfile
 from core.utilities.base_action_retrier import BaseActionRetrier
-from core.configurations.base_timeout_configuration import BaseTimeoutConfiguration
 from core.localization.loggers.base_localized_logger import BaseLocalizedLogger
+from configuration.timeout_configuration import TimeoutConfiguration
 from selenium.common.exceptions import SessionNotCreatedException, WebDriverException, TimeoutException
 
 
 class BrowserFactory(ABC):
     @inject
     def __init__(self, browser_profile: BrowserProfile, logger: BaseLocalizedLogger,
-                 timeouts: BaseTimeoutConfiguration, action_retrier: BaseActionRetrier):
+                 timeouts: TimeoutConfiguration, action_retrier: BaseActionRetrier):
         self._browser_profile = browser_profile
         self._logger = logger
         self._timeouts = timeouts

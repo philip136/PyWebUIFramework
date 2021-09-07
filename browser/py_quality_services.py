@@ -94,7 +94,7 @@ class PyQualityServices(QualityServices):
         return cls.get(LocalBrowserFactory)
 
     @classmethod
-    def get_element_factory(cls):
+    def get_element_factory(cls) -> ElementFactory:
         return cls.get(ElementFactory)
 
     @classmethod
@@ -106,7 +106,7 @@ class PyQualityServices(QualityServices):
         return cls.get(BrowserProfile)
 
     @classmethod
-    def get_conditional_wait(cls):
+    def get_conditional_wait(cls) -> ConditionalWait:
         """Get ConditionalWait from injector instance.
         :return: Get ConditionalWait instance.
         :rtype: ConditionalWait.

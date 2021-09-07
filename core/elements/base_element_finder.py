@@ -14,8 +14,8 @@ class BaseElementFinder(ABC):
     @inject
     def __init__(self, logger: BaseLocalizedLogger, conditional_wait: ConditionalWait):
         """Initialize finder with required dependencies."""
-        self.__logger = logger
-        self.__conditional_wait = conditional_wait
+        self._logger = logger
+        self._conditional_wait = conditional_wait
 
     @abstractmethod
     def find_element(self, locator: ty.Tuple[By, str], desired_state: str = ElementState.EXIST_IN_ANY_STATE.value,

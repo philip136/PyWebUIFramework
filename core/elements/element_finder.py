@@ -50,12 +50,13 @@ class ElementFinder(BaseElementFinder):
 
             def find_elements_func(driver):
                 elements["found"] = driver.find_elements(*locator)
+                state_condition_method = 'is_' + desired_state.element_state_condition
                 elements["result"] = list(
-                    filter(desired_state.element_state_condition, elements["found"])
+                    filter(lambda elem: getattr(elem, state_condition_method)() is True, elements["found"])
                 )
                 return any(elements["result"])
 
-            self.__conditional_wait.wait_for_with_driver(find_elements_func, timeout)
+            self._conditional_wait.wait_for_with_driver(find_elements_func, timeout)
         except TimeoutException as exception:
             self._handle_timeout_exception(
                 exception, locator, desired_state, elements["found"]
@@ -69,10 +70,9 @@ class ElementFinder(BaseElementFinder):
             if not any(found_elements):
                 if desired_state.raise_no_such_element_exception:
                     raise NoSuchElementException(message)
-                self.__logger.debug("loc.no.elements.found.in.state", str(), locator, desired_state.state_name)
+                self._logger.debug("loc.no.elements.found.in.state", str(), locator, desired_state.state_name)
             else:
-                self.__logger.debug("loc.elements.were.found.but.not.in.state", str(), locator,
-                                    desired_state.state_name)
+                self._logger.debug("loc.elements.were.found.but.not.in.state", str(), locator, desired_state.state_name)
         else:
             message = f"{exception.msg}: {message}"
             if desired_state.raise_no_such_element_exception and not any(found_elements):

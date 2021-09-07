@@ -18,6 +18,10 @@ from core.waitings.base_conditional_wait import BaseConditionalWait
 from core.elements.base_element_factory import BaseElementFactory
 from core.applications.base_application import BaseApplication
 from core.utilities.base_action_retrier import BaseActionRetrier
+from core.elements.base_element_cache_handler import BaseElementCacheHandler
+from core.elements.element_cache_handler import ElementCacheHandler
+from core.elements.states.cached_element_state_provider import CachedElementStateProvider
+from core.elements.actions.js_actions import JsActions
 
 T = ty.TypeVar('T')
 TRetrier = ty.TypeVar('TRetrier')
@@ -27,10 +31,12 @@ class BaseElement(BaseParentElement, ABC):
     """Base class for any custom element."""
     __element_cache_handler = None
 
-    def __init__(self, locator: ty.Tuple[By, str], name: str, element_state: ty.Callable[[WebElement], bool]):
+    def __init__(self, locator: ty.Tuple[By, str], name: str, element_state: str,
+                 element_factory: BaseElementFactory):
         self.__locator = locator
         self.__name = name
         self.__element_state = element_state
+        self.__element_factory = element_factory
 
     @property
     def locator(self) -> ty.Tuple[By, str]:
@@ -53,19 +59,20 @@ class BaseElement(BaseParentElement, ABC):
         return self.__element_state
 
     @property
-    def state(self):
+    def state(self) -> ty.Union[CachedElementStateProvider, ElementStateProvider]:
         """Get element state provider."""
-        if self.__element_cache_handler.is_enabled:
-            return
+        if self._cache_configuration.is_enabled:
+            return CachedElementStateProvider(self.locator, self._conditional_wait, self._element_finder, self._cache)
         else:
             return ElementStateProvider(self.locator, self._conditional_wait, self._element_finder)
 
     @property
     def text(self) -> str:
         """
-               Get text of item (inner text).
-               :return: Text of element.
-               """
+        Get text of item (inner text).
+        :return: Text of element.
+        :rtype: str.
+        """
         self._log_element_action("loc.get.text")
         value = self._do_with_retry(lambda: str(self.get_element().text))
         self._log_element_action("loc.text.value", value)
@@ -157,9 +164,8 @@ class BaseElement(BaseParentElement, ABC):
         return self._element_factory.localization_manager
 
     @property
-    @abstractmethod
     def _element_factory(self) -> BaseElementFactory:
-        pass
+        return self.__element_factory
 
     @property
     def _conditional_wait(self) -> BaseConditionalWait:
@@ -171,21 +177,24 @@ class BaseElement(BaseParentElement, ABC):
         pass
 
     @property
+    def js_action(self) -> JsActions:
+        return JsActions(self, self.__element_state, self._localized_logger,
+                         self._element_action_retrier, self._application)
+
+    @property
     def _logger_configuration(self) -> BaseLoggerConfiguration:
         return self._localized_logger.configuration
 
     @property
-    def _cache(self) -> ElementCacheConfiguration:
+    def _cache(self) -> BaseElementCacheHandler:
         if self.__element_cache_handler is None:
-            self.__element_cache_handler = ElementCacheConfiguration(
-                self.__locator, self.__element_state, self._element_finder
-            )
+            self.__element_cache_handler = ElementCacheHandler(self.__locator, self.__element_state,
+                                                               self._element_finder)
         return self.__element_cache_handler
 
     def _log_element_action(self, message_key: str, *message_args, **logger_kwargs) -> None:
         self._localized_logger.info_element_action(
-            self._element_type, self.name, message_key, message_args, logger_kwargs
-        )
+            self._element_type, self.name, message_key, message_args, logger_kwargs)
 
     def find_child_element(self, supplier: ty.Callable[[ty.Tuple[By, str], str, str], T],
                            child_locator: ty.Tuple[By, str], name: str,

@@ -1,7 +1,7 @@
 from core.configurations.element_cache_configuration import ElementCacheConfiguration
 from core.localization.configurations.logger_configuration import LoggerConfiguration
 from core.configurations.retry_configuration import RetryConfiguration
-from core.configurations.timeout_configuration import TimeoutConfiguration
+from core.configurations.timeout_configuration import TimeoutConfigurationCore
 
 
 class ConfigurationModule:
@@ -19,4 +19,4 @@ class ConfigurationModule:
 
     @staticmethod
     def get_timeout_configuration():
-        return TimeoutConfiguration
+        return TimeoutConfigurationCore

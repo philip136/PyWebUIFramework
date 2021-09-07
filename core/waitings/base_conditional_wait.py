@@ -15,8 +15,8 @@ class BaseConditionalWait(ABC):
     @inject
     def __init__(self, timeout_configuration: BaseTimeoutConfiguration, application: BaseApplication):
         """Initialize with configuration."""
-        self.__timeout_configuration = timeout_configuration
-        self.__application = application
+        self._timeout_configuration = timeout_configuration
+        self._application = application
 
     @abstractmethod
     def wait_for_with_driver(self, condition: ty.Callable[[WebDriver], T], timeout: int = 0,

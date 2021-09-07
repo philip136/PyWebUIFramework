@@ -1,4 +1,5 @@
 import os
+from itertools import chain
 from logging import Logger
 from injector import inject
 
@@ -42,4 +43,5 @@ class LocalizationManager(BaseLocalizationManager):
         else:
             self.__logger.warning('Cannot find localized message by key %s in resource file %s' % (
                 key_in_json, self.__resource_name))
+        message_args = tuple(chain(*message_args)) if len(message_args) > 1 else message_args
         return localized_message % message_args

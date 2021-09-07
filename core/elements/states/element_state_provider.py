@@ -15,13 +15,13 @@ class ElementStateProvider(BaseElementStateProvider):
         return self.__is_any_element_found(timeout, ElementState.DISPLAYED.value)
 
     def wait_for_not_displayed(self, timeout: int = 0) -> bool:
-        return self.__conditional_wait.wait_for(lambda: not self.is_displayed, timeout)
+        return self._conditional_wait.wait_for(lambda: not self.is_displayed, timeout)
 
     def wait_for_exist(self, timeout: int = 0) -> bool:
         return self.__is_any_element_found(timeout, ElementState.EXIST_IN_ANY_STATE.value)
 
     def wait_for_not_exist(self, timeout: int = 0) -> bool:
-        return self.__conditional_wait.wait_for(lambda: not self.is_exist, timeout)
+        return self._conditional_wait.wait_for(lambda: not self.is_exist, timeout)
 
     def wait_for_enabled(self, timeout: int = 0) -> bool:
         return self.__is_element_in_desired_condition(timeout, lambda element: bool(element.is_enabled()), "ENABLED")
@@ -44,9 +44,9 @@ class ElementStateProvider(BaseElementStateProvider):
         return self.__is_element_in_desired_state(timeout, desired_state)
 
     def __is_element_in_desired_state(self, timeout: int, desired_state: DesiredState) -> bool:
-        found_elements = self.__element_finder.find_elements_in_state(self.__element_locator, desired_state, timeout)
+        found_elements = self._element_finder.find_elements_in_state(self._element_locator, desired_state, timeout)
         return any(found_elements)
 
-    def __is_any_element_found(self, timeout: int, state: ty.Callable[[WebElement], bool]) -> bool:
-        found_elements = self.__element_finder.find_elements(self.__element_locator, state, timeout)
+    def __is_any_element_found(self, timeout: int, state: str) -> bool:
+        found_elements = self._element_finder.find_elements(self._element_locator, state, timeout)
         return any(found_elements)
