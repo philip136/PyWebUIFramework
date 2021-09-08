@@ -59,7 +59,7 @@
     "timeoutCondition" : 30,
     "timeoutScript" : 10,
     "timeoutPageLoad" : 15,
-    "timeoutPollingInterval": 10,
+    "timeoutPollingInterval": 300,
     "timeoutCommand":120
   },
   "retry": {
@@ -67,7 +67,7 @@
     "pollingInterval": 300
   },
   "logger": {
-    "language": "ru",
+    "language": "en",
     "logPageSource": true
   },
   "elementCache": {

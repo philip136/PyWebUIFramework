@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from core.elements.states.element_state import ElementState
+from core.elements.states.element_state import Displayed
 from core.elements.states.element_count import ElementCount
 
 T = ty.TypeVar('T')
@@ -13,7 +13,7 @@ class BaseParentElement(ABC):
     @abstractmethod
     def find_child_element(self, supplier: ty.Callable[[ty.Tuple[By, str], str, ty.Callable], T],
                            child_locator: ty.Tuple[By, str], name: str,
-                           state: ty.Callable[[WebElement], bool] = ElementState.DISPLAYED) -> T:
+                           state: ty.Callable[[WebElement], bool] = Displayed) -> T:
         """Find child element for current element.
         :param supplier: Callable object that defines constructor of child element.
         :param child_locator: Locator of child element.

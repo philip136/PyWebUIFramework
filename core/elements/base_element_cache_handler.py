@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from core.elements.states.element_state import ElementState
+from core.elements.states.element_state import Displayed
 from core.elements.base_element_finder import BaseElementFinder
 
 
@@ -33,7 +33,7 @@ class BaseElementCacheHandler(ABC):
 
         state = self._state if custom_state is None else custom_state
         is_displayed = self.__remote_element.is_displayed()
-        return isinstance(state, ElementState.DISPLAYED.value) and not is_displayed
+        return isinstance(state, Displayed) and not is_displayed
 
     @abstractmethod
     def get_element(self, timeout: int = 0, custom_state: ty.Callable[[WebElement], bool] = None) -> WebElement:

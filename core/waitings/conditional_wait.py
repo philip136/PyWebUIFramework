@@ -25,11 +25,7 @@ class ConditionalWait(BaseConditionalWait):
         """
         wait_timeout = self.__resolve_condition_timeout(timeout)
         check_interval = self.__resolve_polling_interval(polling_interval)
-        ignored_exceptions = (
-            exceptions_to_ignore
-            if exceptions_to_ignore
-            else [StaleElementReferenceException]
-        )
+        ignored_exceptions = (exceptions_to_ignore if exceptions_to_ignore else [StaleElementReferenceException])
         self._application.set_implicit_wait_timeout(0)
         wait = WebDriverWait(self._application.driver, wait_timeout, check_interval, ignored_exceptions)
         try:

@@ -1,6 +1,7 @@
 import typing as ty
 from threading import local
 
+from injector import Injector
 from browser.browser import Browser
 from browser.browser_module import BrowserModule
 from browser.browser_factory import BrowserFactory
@@ -35,7 +36,8 @@ class PyQualityServices(QualityServices):
     def __start_browser(cls) -> Browser:
         """Choose interface for future browser.
         :return: Browser instance.
-        :rtype: Browser."""
+        :rtype: Browser.
+        """
         return cls.get_browser_factory().get_browser()
 
     @classmethod
@@ -49,28 +51,30 @@ class PyQualityServices(QualityServices):
         return cls.get_instance().browser_factory
 
     @classmethod
-    def set_browser_factory(cls, browser_factory: ty.Generic[BF]) -> None:
-        """Set factory in current instance that implements BrowserFactory."""
+    def set_browser_factory(cls, browser_factory: BF) -> None:
+        """Set factory in current instance that implements BrowserFactory.
+        :param browser_factory: Factory implementing the interface BrowserFactory.
+        """
         setattr(cls.get_instance().__class__, 'browser_factory', browser_factory)
 
     @classmethod
-    def set_default_browser_factory(cls):
+    def set_default_browser_factory(cls) -> None:
         """Choose interface for browser factory."""
         browser_factory = cls.get_local_browser_factory()
         cls.set_browser_factory(browser_factory=browser_factory)
 
     @classmethod
-    def get_instance(cls, browser_module=None) -> T:
+    def get_instance(cls) -> T:
         """Get or create current instance.
         :return: Get or create current class.
         :rtype: T.
         """
         if getattr(LOCAL, '_instance_container', None) is None:
             setattr(LOCAL, '_instance_container', cls())
-        return getattr(LOCAL, '_instance_container')
+        return getattr(LOCAL, '_instance_container', None)
 
     @classmethod
-    def get_service_provider(cls):
+    def get_service_provider(cls) -> Injector:
         """Get injector instance.
         :return: Injector object.
         :rtype: Injector.
@@ -80,6 +84,7 @@ class PyQualityServices(QualityServices):
     @classmethod
     def get(cls, clz: ty.Any) -> ty.Any:
         """Get instance from injector instance.
+        :param clz: Class that is associated.
         :return: Instance which is registered in injector.
         :rtype: ty.Any.
         """
@@ -114,7 +119,7 @@ class PyQualityServices(QualityServices):
         return cls.get(ConditionalWait)
 
     @classmethod
-    def get_localized_logger(cls):
+    def get_localized_logger(cls) -> BaseLocalizedLogger:
         """Get LocalizationLogger from injector instance.
         :return: Get LocalizationLogger instance.
         :rtype: LocalizationLogger.

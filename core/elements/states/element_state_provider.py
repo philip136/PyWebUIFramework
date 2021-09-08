@@ -2,7 +2,7 @@ import typing as ty
 
 from selenium.webdriver.remote.webelement import WebElement
 from core.elements.states.desired_state import DesiredState
-from core.elements.states.element_state import ElementState
+from core.elements.states.element_state import Displayed, ExistsInAnyState
 from core.elements.states.base_element_state_provider import BaseElementStateProvider
 
 
@@ -12,13 +12,13 @@ class ElementStateProvider(BaseElementStateProvider):
         return self.__is_element_clickable(0, True)
 
     def wait_for_displayed(self, timeout: int = 0) -> bool:
-        return self.__is_any_element_found(timeout, ElementState.DISPLAYED.value)
+        return self.__is_any_element_found(timeout, Displayed())
 
     def wait_for_not_displayed(self, timeout: int = 0) -> bool:
         return self._conditional_wait.wait_for(lambda: not self.is_displayed, timeout)
 
     def wait_for_exist(self, timeout: int = 0) -> bool:
-        return self.__is_any_element_found(timeout, ElementState.EXIST_IN_ANY_STATE.value)
+        return self.__is_any_element_found(timeout, ExistsInAnyState())
 
     def wait_for_not_exist(self, timeout: int = 0) -> bool:
         return self._conditional_wait.wait_for(lambda: not self.is_exist, timeout)
@@ -27,8 +27,8 @@ class ElementStateProvider(BaseElementStateProvider):
         return self.__is_element_in_desired_condition(timeout, lambda element: bool(element.is_enabled()), "ENABLED")
 
     def wait_for_not_enabled(self, timeout: int = 0) -> bool:
-        return self.__is_element_in_desired_condition(timeout, lambda element: not bool(element.is_enabled()),
-                                                      'NOT ENABLED')
+        return self.__is_element_in_desired_condition(
+            timeout, lambda element: not bool(element.is_enabled()), 'NOT ENABLED')
 
     def wait_for_clickable(self, timeout: int = 0) -> None:
         self.__is_element_clickable(timeout, False)
@@ -47,6 +47,6 @@ class ElementStateProvider(BaseElementStateProvider):
         found_elements = self._element_finder.find_elements_in_state(self._element_locator, desired_state, timeout)
         return any(found_elements)
 
-    def __is_any_element_found(self, timeout: int, state: str) -> bool:
+    def __is_any_element_found(self, timeout: int, state: ty.Callable[[WebElement], bool]) -> bool:
         found_elements = self._element_finder.find_elements(self._element_locator, state, timeout)
         return any(found_elements)

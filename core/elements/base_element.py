@@ -5,7 +5,7 @@ from selenium.common.exceptions import NoSuchElementException, WebDriverExceptio
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from core.elements.states.element_count import ElementCount
-from core.elements.states.element_state import ElementState
+from core.elements.states.element_state import Displayed
 from core.elements.base_parent_element import BaseParentElement
 from core.configurations.element_cache_configuration import ElementCacheConfiguration
 from core.localization.configurations.base_logger_configuration import BaseLoggerConfiguration
@@ -24,14 +24,14 @@ from core.elements.states.cached_element_state_provider import CachedElementStat
 from core.elements.actions.js_actions import JsActions
 
 T = ty.TypeVar('T')
-TRetrier = ty.TypeVar('TRetrier')
+TR = ty.TypeVar('TR')
 
 
 class BaseElement(BaseParentElement, ABC):
     """Base class for any custom element."""
     __element_cache_handler = None
 
-    def __init__(self, locator: ty.Tuple[By, str], name: str, element_state: str,
+    def __init__(self, locator: ty.Tuple[By, str], name: str, element_state: ty.Callable[[WebElement], bool],
                  element_factory: BaseElementFactory):
         self.__locator = locator
         self.__name = name
@@ -89,7 +89,7 @@ class BaseElement(BaseParentElement, ABC):
         self._log_element_action("loc.el.attr.value", attr, value)
         return value
 
-    def _do_with_retry(self, expression: ty.Callable[..., TRetrier]) -> TRetrier:
+    def _do_with_retry(self, expression: ty.Callable[..., TR]) -> TR:
         return self._element_action_retrier.do_with_retry(expression)
 
     def send_keys(self, keys: str) -> None:
@@ -198,7 +198,7 @@ class BaseElement(BaseParentElement, ABC):
 
     def find_child_element(self, supplier: ty.Callable[[ty.Tuple[By, str], str, str], T],
                            child_locator: ty.Tuple[By, str], name: str,
-                           state: str = ElementState.DISPLAYED.value) -> T:
+                           state: ty.Callable[[WebElement], bool] = Displayed) -> T:
         """
         Find child element of type TElement of current element by its locator.
         :param supplier: Callable object that defines constructor of child element in case of custom element.
@@ -211,7 +211,7 @@ class BaseElement(BaseParentElement, ABC):
 
     def find_child_elements(self, supplier: ty.Callable[[ty.Tuple[By, str], str, str], T],
                             child_locator: ty.Tuple[By, str], name: str,
-                            state: str = ElementState.DISPLAYED.value,
+                            state: ty.Callable[[WebElement], bool] = Displayed,
                             expected_count: ElementCount = ElementCount.ANY) -> ty.List[T]:
         """
         Find child elements of type TElement of current element by its locator.

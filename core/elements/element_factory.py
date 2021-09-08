@@ -1,8 +1,9 @@
 import typing as ty
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 from core.elements.base_element_factory import BaseElementFactory
-from core.elements.states.element_state import ElementState
+from core.elements.states.element_state import Displayed
 from core.elements.states.element_count import ElementCount
 from core.elements.base_element import BaseElement
 
@@ -12,8 +13,10 @@ T = ty.TypeVar('T')
 class ElementFactory(BaseElementFactory):
     """Factory that creates elements."""
 
-    def get_custom_element(self, element_supplier: ty.Callable[[ty.Tuple[By, str], str, str], T],
-                           locator: ty.Tuple[By, str], name: str, state: str = ElementState.DISPLAYED.value) -> T:
+    def get_custom_element(self, element_supplier: ty.Callable[[ty.Tuple[By, str], str,
+                                                                ty.Callable[[WebElement], bool]], T],
+                           locator: ty.Tuple[By, str], name: str,
+                           state: ty.Callable[[WebElement], bool] = Displayed) -> T:
         """
         Create custom element according to passed parameters.
         :param element_supplier: Delegate that defines constructor of element.
@@ -25,9 +28,10 @@ class ElementFactory(BaseElementFactory):
         return element_supplier(locator, name, state)
 
     def find_child_element(self, parent_element: BaseElement,
-                           element_supplier: ty.Callable[[ty.Tuple[By, str], str, str], T],
+                           element_supplier: ty.Callable[[ty.Tuple[By, str], str,
+                                                          ty.Callable[[WebElement], bool]], T],
                            child_locator: ty.Tuple[By, str], name: str = str(),
-                           state: str = ElementState.DISPLAYED.value) -> T:
+                           state: ty.Callable[[WebElement], bool] = Displayed) -> T:
         """
         Find child element by its locator relative to parent element.
         :param parent_element: Parent element.
@@ -42,9 +46,10 @@ class ElementFactory(BaseElementFactory):
         return element_supplier(locator, element_name, state)
 
     def find_child_elements(self, parent_element: BaseElement,
-                            element_supplier: ty.Callable[[ty.Tuple[By, str], str, str], T],
+                            element_supplier: ty.Callable[[ty.Tuple[By, str], str,
+                                                           ty.Callable[[WebElement], bool]], T],
                             child_locator: ty.Tuple[By, str], name: str = str(),
-                            state: str = ElementState.DISPLAYED.value,
+                            state: ty.Callable[[WebElement], bool] = Displayed,
                             expected_count: ElementCount = ElementCount.ANY.value) -> ty.List[T]:
         """
         Find child element by its locator relative to parent element.
@@ -60,8 +65,8 @@ class ElementFactory(BaseElementFactory):
         locator = self._generate_absolute_child_locator(parent_element.locator, child_locator)
         return self.find_elements(element_supplier, locator, elements_name, state, expected_count)
 
-    def find_elements(self, element_supplier: ty.Callable[[ty.Tuple[By, str], str, str], T], locator: ty.Tuple[By, str],
-                      name: str = str(), state: str = ElementState.DISPLAYED.value,
+    def find_elements(self, element_supplier: ty.Callable[[ty.Tuple[By, str], str, ty.Callable[[WebElement], bool]], T],
+                      locator: ty.Tuple[By, str], name: str = str(), state: ty.Callable[[WebElement], bool] = Displayed,
                       expected_count: ElementCount = ElementCount.ANY.value) -> ty.List[T]:
         """
         Find list of elements by base locator.
@@ -83,7 +88,7 @@ class ElementFactory(BaseElementFactory):
             found_elements.append(element_supplier(element_locator, element_name, state))
         return found_elements
 
-    def __check_elements_count(self, locator: ty.Tuple[By, str], state: str = ElementState.DISPLAYED.value,
+    def __check_elements_count(self, locator: ty.Tuple[By, str], state: ty.Callable[[WebElement], bool] = Displayed,
                                expected_count: ElementCount = ElementCount.ANY.value) -> None:
         if expected_count == ElementCount.ZERO:
             self._conditional_wait.wait_for_true(

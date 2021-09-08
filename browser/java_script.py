@@ -12,6 +12,8 @@ class JavaScript(Enum):
     GET_CHECKBOX_STATE = 'getCheckBoxState.js'
     SCROLL_BY = 'scrollBy.js'
     SCROLL_WINDOW_BY = 'scrollWindowBy.js'
+    OPEN_NEW_TAB = 'openNewTab.js'
+    OPEN_IN_NEW_TAB = 'openInNewTab.js'
 
     def __init__(self, filename):
         self.__filename = filename

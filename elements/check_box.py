@@ -1,7 +1,7 @@
-from core.elements.base_element import BaseElement
+from elements.checkable_element import CheckableElement
 
 
-class CheckBox(BaseElement):
+class CheckBox(CheckableElement):
     @property
     def _element_type(self) -> str:
         return self._localization_manager.get_localized_message('loc.checkbox')

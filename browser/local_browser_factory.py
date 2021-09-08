@@ -11,9 +11,15 @@ WD = ty.TypeVar('WD', bound=RemoteWebDriver)
 
 
 class LocalBrowserFactory(BrowserFactory):
+    """Class that implements the BrowserFactory interface."""
+
     __driver: ty.Optional[WD] = None
 
-    def get_driver(self):
+    def get_driver(self) -> WD:
+        """Selecting the required driver (Firefox, Chrome and etc).
+        :return: WebDriver.
+        :rtype: WD.
+        """
         browser_name = self._browser_profile.browser_name
         driver_settings = self._browser_profile.get_driver_settings()
         capabilities = driver_settings.get_capabilities()

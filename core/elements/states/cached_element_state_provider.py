@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException
 from core.elements.base_element_finder import BaseElementFinder
-from core.elements.states.element_state import ElementState
+from core.elements.states.element_state import ExistsInAnyState
 from core.waitings.base_conditional_wait import BaseConditionalWait
 from core.elements.base_element_cache_handler import BaseElementCacheHandler
 from core.elements.states.base_element_state_provider import BaseElementStateProvider
@@ -23,8 +23,7 @@ class CachedElementStateProvider(BaseElementStateProvider):
         :return: true if displayed and false otherwise.
         """
         return not self.__element_cache_handler.is_stale and self._try_invoke_function(
-            lambda element: bool(element.is_displayed())
-        )
+            lambda element: bool(element.is_displayed()))
 
     @property
     def is_exist(self) -> bool:
@@ -119,7 +118,7 @@ class CachedElementStateProvider(BaseElementStateProvider):
         :param timeout: Timeout for waiting. Default value is taken from TimeoutConfiguration.
         :raises: WebDriverTimeoutException when timeout exceeded and element is not clickable.
         """
-        return self.__conditional_wait.wait_for_true(lambda: self.is_clickable, timeout)
+        return self._conditional_wait.wait_for_true(lambda: self.is_clickable, timeout)
 
     def _try_invoke_function(self, func: ty.Callable[[WebElement], bool],
                              exceptions_to_handle: ty.List[ty.Type[Exception]] = [],) -> bool:
@@ -130,7 +129,7 @@ class CachedElementStateProvider(BaseElementStateProvider):
         )
         try:
             return func(
-                self.__element_cache_handler.get_element(0, ElementState.EXIST_IN_ANY_STATE.value)
+                self.__element_cache_handler.get_element(0, ExistsInAnyState)
             )
         except Exception as exception:
             if any(
@@ -145,4 +144,4 @@ class CachedElementStateProvider(BaseElementStateProvider):
         return [StaleElementReferenceException, NoSuchElementException]
 
     def _wait_for_condition(self, condition: ty.Callable[..., bool], timeout: int) -> bool:
-        return self.__conditional_wait.wait_for(condition, timeout)
+        return self._conditional_wait.wait_for(condition, timeout)

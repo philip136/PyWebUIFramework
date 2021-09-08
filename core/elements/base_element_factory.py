@@ -3,7 +3,8 @@ from abc import ABC, abstractmethod
 
 from injector import inject
 from selenium.webdriver.common.by import By
-from core.elements.states.element_state import ElementState
+from selenium.webdriver.remote.webelement import WebElement
+from core.elements.states.element_state import Displayed
 from core.elements.states.element_count import ElementCount
 from core.waitings.conditional_wait import ConditionalWait
 from core.elements.base_element_finder import BaseElementFinder
@@ -34,7 +35,7 @@ class BaseElementFactory(ABC):
     @abstractmethod
     def get_custom_element(self, element_supplier: ty.Callable[[ty.Tuple[By, str], str, str], T],
                            locator: ty.Tuple[By, str], name: str,
-                           state: str = ElementState.DISPLAYED.value) -> T:
+                           state: ty.Callable[[WebElement], bool] = Displayed) -> T:
         """
         Create custom element according to passed parameters.
         :param element_supplier: Callable object that defines constructor of element.
@@ -49,7 +50,7 @@ class BaseElementFactory(ABC):
     def find_child_element(self, parent_element,
                            element_supplier: ty.Callable[[ty.Tuple[By, str], str, str], T],
                            child_locator: ty.Tuple[By, str], name: str = str(),
-                           state: str = ElementState.DISPLAYED.value) -> T:
+                           state: ty.Callable[[WebElement], bool] = Displayed) -> T:
         """
         Find child element by its locator relative to parent element.
         :param parent_element: Parent element.
@@ -65,7 +66,7 @@ class BaseElementFactory(ABC):
     def find_child_elements(self, parent_element,
                             element_supplier: ty.Callable[[ty.Tuple[By, str], str, str], T],
                             child_locator: ty.Tuple[By, str], name: str = str(),
-                            state: str = ElementState.DISPLAYED.value,
+                            state: ty.Callable[[WebElement], bool] = Displayed,
                             expected_count: ElementCount = ElementCount.ANY.value) -> ty.List[T]:
         """
         Find child element by its locator relative to parent element.
@@ -81,7 +82,8 @@ class BaseElementFactory(ABC):
 
     @abstractmethod
     def find_elements(self, element_supplier: ty.Callable[[ty.Tuple[By, str], str, str], T],
-                      locator: ty.Tuple[By, str], name: str = str(), state: str = ElementState.DISPLAYED.value,
+                      locator: ty.Tuple[By, str], name: str = str(),
+                      state: ty.Callable[[WebElement], bool] = Displayed,
                       expected_count: ElementCount = ElementCount.ANY.value) -> ty.List[T]:
         """
         Find list of elements by base locator.

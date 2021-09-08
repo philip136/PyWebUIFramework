@@ -9,9 +9,15 @@ class BaseTimeoutConfiguration(ABC):
 
     @inject
     def __init__(self, settings_file: BaseSettingsFile):
+        """Provides a SettingsFile to select the required configuration settings."""
         self._settings_file = settings_file
 
     def _get_config_value(self, key: str) -> int:
+        """Get value from settings.json.
+        :param key: Key to get the value from settings.json.
+        :return: Value from settings.json.
+        :rtype: int.
+        """
         return int(self._settings_file.get_value(key))
 
     @property

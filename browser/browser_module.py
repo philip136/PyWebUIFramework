@@ -1,4 +1,4 @@
-from injector import ClassProvider, singleton, InstanceProvider
+from injector import ClassProvider, singleton, InstanceProvider, Binder
 
 from core.applications.quality_module import QualityModule
 from core.configurations.base_browser_profile import BaseBrowserProfile
@@ -10,7 +10,12 @@ from elements.element_factory import ElementFactory
 
 
 class BrowserModule(QualityModule):
-    def configure(self, binder):
+    """Class for register providers."""
+
+    def configure(self, binder: Binder) -> None:
+        """Bind interfaces to implementations.
+        :param binder: Binder object.
+        """
         super(BrowserModule, self).configure(binder)
         binder.bind(TimeoutConfigurationCore, to=ClassProvider(TimeoutConfiguration), scope=singleton)
         binder.bind(BaseBrowserProfile, to=ClassProvider(ElementCacheConfiguration), scope=singleton)

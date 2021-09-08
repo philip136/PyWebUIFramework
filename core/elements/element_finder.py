@@ -3,14 +3,14 @@ import typing as ty
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.remote.webelement import WebElement
-from core.elements.states.element_state import ElementState
+from core.elements.states.element_state import ExistsInAnyState
 from core.elements.states.desired_state import DesiredState
 from core.elements.base_element_finder import BaseElementFinder
 
 
 class ElementFinder(BaseElementFinder):
     def find_element(self, locator: ty.Tuple[By, str],
-                     desired_state: ty.Callable[[WebElement], bool] = ElementState.EXIST_IN_ANY_STATE.value,
+                     desired_state: ty.Callable[[WebElement], bool] = ExistsInAnyState,
                      timeout: int = 0) -> WebElement:
         """
         Find element in desired state defined by callable object.
@@ -24,7 +24,7 @@ class ElementFinder(BaseElementFinder):
         return self.find_elements_in_state(locator, state, timeout)[0]
 
     def find_elements(self, locator: ty.Tuple[By, str],
-                      desired_state: ty.Callable[[WebElement], bool] = ElementState.EXIST_IN_ANY_STATE.value,
+                      desired_state: ty.Callable[[WebElement], bool] = ExistsInAnyState,
                       timeout: int = 0) -> ty.List[WebElement]:
         """
         Find elements in desired state defined by callable object.
@@ -50,9 +50,8 @@ class ElementFinder(BaseElementFinder):
 
             def find_elements_func(driver):
                 elements["found"] = driver.find_elements(*locator)
-                state_condition_method = 'is_' + desired_state.element_state_condition
                 elements["result"] = list(
-                    filter(lambda elem: getattr(elem, state_condition_method)() is True, elements["found"])
+                    filter(lambda elem: desired_state.element_state_condition(elem), elements["found"])
                 )
                 return any(elements["result"])
 

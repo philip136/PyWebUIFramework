@@ -2,6 +2,8 @@ from core.configurations.base_timeout_configuration import BaseTimeoutConfigurat
 
 
 class TimeoutConfigurationCore(BaseTimeoutConfiguration):
+    """Core class for setting timeouts."""
+
     @property
     def implicit(self) -> int:
         """Get WedDriver ImplicitWait timeout."""

@@ -1,5 +1,5 @@
 import logging
-from injector import Module, ClassProvider, InstanceProvider, singleton
+from injector import Module, ClassProvider, InstanceProvider, singleton, Binder
 
 from core.applications.base_application import BaseApplication
 from core.utilities.base_settings_file import BaseSettingsFile
@@ -21,12 +21,16 @@ from core.elements.element_finder import ElementFinder
 
 
 class QualityModule(Module):
-    __application_provider = None
+    """Default class for register providers."""
 
-    def __init__(self, application_provider):
+    def __init__(self, application_provider: BaseApplication):
+        """Initial link for binding."""
         self.__application_provider = application_provider
 
-    def configure(self, binder):
+    def configure(self, binder: Binder):
+        """Bind interfaces to implementations.
+        :param binder: Binder object.
+        """
         binder.bind(BaseApplication, to=self.__application_provider, scope=singleton)
         binder.bind(logging.Logger, to=InstanceProvider(Logger), scope=singleton)
         binder.bind(BaseSettingsFile, to=InstanceProvider(UtilitiesModule.get_instance_of_settings_file()))

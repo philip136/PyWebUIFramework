@@ -1,7 +1,17 @@
-from enum import Enum
+from selenium.webdriver.remote.webelement import WebElement
 
 
-class ElementState(Enum):
-    DISPLAYED = 'displayed'
-    EXIST_IN_ANY_STATE = 'exists'
+class ExistsInAnyState:
+    """Determines any element's state."""
 
+    def __call__(self, element: WebElement):
+        """Return True in any case."""
+        return True
+
+
+class Displayed:
+    """Determines element's displayed state."""
+
+    def __call__(self, element: WebElement):
+        """Return true if elements is displayed and false otherwise."""
+        return element.is_displayed()
