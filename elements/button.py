@@ -1,7 +1,7 @@
-from elements.base_element import BaseElement
+from core.elements.base_element import BaseElement
 
 
 class Button(BaseElement):
-    def _get_element_type(self):
-        return 'button'
-
+    @property
+    def _element_type(self) -> str:
+        return self._localization_manager.get_localized_message('loc.button')

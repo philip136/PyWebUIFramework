@@ -1,27 +1,38 @@
-from dependency_injector.wiring import inject, Provide
+import typing as ty
 
-from elements.element_type import ElementType
-from elements.element_state import ElementState
-from application.ioc_config_container import IocConfigContainer
+from selenium.webdriver.common.by import By
+from core.elements.element_factory import ElementFactory as ElementFactoryCore
+from core.elements.states.element_state import Displayed
+from elements.button import Button
+from elements.link import Link
+from elements.label import Label
+from elements.check_box import CheckBox
+from elements.combo_box import ComboBox
+from elements.text_box import TextBox
+from elements.radio_button import RadioButton
 
 
-class ElementFactory:
-    @inject
-    def __init__(self, conditional_wait, element_finder, element_cache_configuration,
-                 logger=Provide[IocConfigContainer.logger]):
-        self._conditional_wait = conditional_wait
-        self._element_finder = element_finder
-        self._logger = logger
-        self._element_cache_configuration = element_cache_configuration
+# TODO: Возможно лучше будет завести отдельную сущность из которой можно будет получить любого провайдера.
 
-    def __get_element(self, element_type, locator, name, state):
-        return self.__get_custom_element(element_type.value, locator, name, state)
 
-    def __get_custom_element(self, element_class, locator, name, state):
-        return element_class(element_finder=self._element_finder,
-                             element_cache_configuration=self._element_cache_configuration,
-                             logger=self._logger, locator=locator, name=name, state=state).get_element(
-            self._conditional_wait.timeout)
+class ElementFactory(ElementFactoryCore):
+    def get_button(self, locator: ty.Tuple[By, str], name: str, element_state=Displayed()) -> Button:
+        return Button(locator, name, element_state, self)
 
-    def get_button(self, locator, name, state=ElementState.EXISTS_IN_ANY_STATE.value):
-        return self.__get_element(ElementType.BUTTON, locator, name, state)
+    def get_radio_button(self, locator: ty.Tuple[By, str], name: str, element_state=Displayed()) -> RadioButton:
+        return RadioButton(locator, name, element_state, self)
+
+    def get_label(self, locator: ty.Tuple[By, str], name: str, element_state=Displayed()) -> Label:
+        return Label(locator, name, element_state, self)
+
+    def get_link(self, locator: ty.Tuple[By, str], name: str, element_state=Displayed()) -> Link:
+        return Link(locator, name, element_state, self)
+
+    def get_check_box(self, locator: ty.Tuple[By, str], name: str, element_state=Displayed()) -> CheckBox:
+        return CheckBox(locator, name, element_state, self)
+
+    def get_combo_box(self, locator: ty.Tuple[By, str], name: str, element_state=Displayed()) -> ComboBox:
+        return ComboBox(locator, name, element_state, self)
+
+    def get_text_box(self, locator: ty.Tuple[By, str], name: str, element_state=Displayed()) -> TextBox:
+        return TextBox(locator, name, element_state, self)
