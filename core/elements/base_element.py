@@ -97,7 +97,7 @@ class BaseElement(BaseParentElement, ABC):
         Send keys.
         :param keys: keys for sending.
         """
-        self._log_element_action("loc.text.sending.keys", keys)
+        self._log_element_action("loc.text.sending.key", keys)
 
         def func():
             self.get_element().send_keys(keys)

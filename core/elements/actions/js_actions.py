@@ -20,6 +20,10 @@ class JsActions:
         self.__log_element_action('loc.clicking.js')
         self.__execute_script(JavaScript.CLICK_ELEMENT.get_script(), self.__element)
 
+    def click_and_wait(self):
+        self.click()
+        self.__browser.wait_for_page_to_load()
+
     def scroll_by(self, x: int, y: int):
         self.__log_element_action('loc.scrolling.js')
         self.__execute_script(JavaScript.SCROLL_BY.get_script(), self.__element, x, y)
