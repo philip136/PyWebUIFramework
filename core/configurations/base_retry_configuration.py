@@ -23,7 +23,7 @@ class BaseRetryConfiguration(ABC):
 
     @property
     @abstractmethod
-    def polling_interval(self) -> timedelta:
+    def polling_interval(self) -> int:
         """Get the polling interval used in retry.
         :return: Timedelta for polling interval.
         :rtype: timedelta.

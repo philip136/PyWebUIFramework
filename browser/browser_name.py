@@ -6,3 +6,5 @@ class BrowserName(Enum):
 
     CHROME = 'CHROME'
     FIREFOX = 'FIREFOX'
+    INTERNET_EXPLORER = 'IEXPLORER'
+    EDGE = 'EDGE'

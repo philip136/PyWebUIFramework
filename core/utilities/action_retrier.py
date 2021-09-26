@@ -23,7 +23,7 @@ class ActionRetrier(BaseActionRetrier):
                 break
             except Exception as exception:
                 if self.__is_exception_handled(exception, handled_exceptions) and retry_attempts_left != 0:
-                    time.sleep(self._retry_configuration.polling_interval.seconds)
+                    time.sleep(self._retry_configuration.polling_interval)
                     retry_attempts_left -= 1
                 else:
                     raise

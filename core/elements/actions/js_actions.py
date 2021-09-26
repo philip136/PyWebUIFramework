@@ -1,7 +1,6 @@
-import typing as ty
-
 from browser.browser import Browser
 from browser.java_script import JavaScript
+from core.elements.highlight_state import HighlightState
 from core.utilities.base_action_retrier import BaseActionRetrier
 from core.localization.loggers.base_localized_logger import BaseLocalizedLogger
 
@@ -16,9 +15,18 @@ class JsActions:
         self.__action_retrier = action_retrier
         self.__browser = browser
 
+    def highlight_element(self, highlight_state: HighlightState = HighlightState.DEFAULT):
+        if (self.__browser.browser_profile.is_element_highlight_enabled or
+                highlight_state.value == HighlightState.HIGHLIGHT.value):
+            self.__execute_script(JavaScript.BORDER_ELEMENT.get_script(), self.__element)
+
     def click(self):
         self.__log_element_action('loc.clicking.js')
         self.__execute_script(JavaScript.CLICK_ELEMENT.get_script(), self.__element)
+
+    def click_and_wait(self):
+        self.click()
+        self.__browser.wait_for_page_to_load()
 
     def scroll_by(self, x: int, y: int):
         self.__log_element_action('loc.scrolling.js')

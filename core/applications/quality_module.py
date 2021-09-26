@@ -1,4 +1,5 @@
 import logging
+import typing as ty
 from injector import Module, ClassProvider, InstanceProvider, singleton, Binder
 
 from core.applications.base_application import BaseApplication
@@ -23,7 +24,7 @@ from core.elements.element_finder import ElementFinder
 class QualityModule(Module):
     """Default class for register providers."""
 
-    def __init__(self, application_provider: BaseApplication):
+    def __init__(self, application_provider: ty.Callable[..., BaseApplication]):
         """Initial link for binding."""
         self.__application_provider = application_provider
 

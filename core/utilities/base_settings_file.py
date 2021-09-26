@@ -21,6 +21,7 @@ class BaseSettingsFile(ABC):
         :return: Presence of value.
         :rtype: bool.
         """
+        pass
 
     def get_value_or_default(self, path: str, default: ty.Any) -> ty.Any:
         """Get single value by specified path from settings file or default if not present.
@@ -40,6 +41,7 @@ class BaseSettingsFile(ABC):
         :return: Dict of values from file.
         :rtype: Dict[str, Any].
         """
+        pass
 
     @abstractmethod
     def get_list(self, path: str) -> ty.List[ty.Any]:
@@ -49,3 +51,4 @@ class BaseSettingsFile(ABC):
         :return: List of values from file.
         :rtype: List[Any].
         """
+        pass

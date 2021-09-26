@@ -16,7 +16,7 @@
         "profile.default_content_settings.popups": "0",
         "disable-popup-blocking": "true",
         "download.prompt_for_download": "false",
-        "download.default_directory": "//home//selenium//downloads"
+        "download.default_directory": "C:\\Users\\f.vasilevsky\\Downloads"
       },
       "pageLoadStrategy": "Normal",
       "startArguments": []
@@ -44,14 +44,14 @@
       "startArguments": []
     },
     "iexplorer": {
-      "webDriverVersion": "latest",
-      "systemArchitecture": "X32",
+      "webDriverVersion": "3.150.1",
+      "systemArchitecture": "X64",
       "capabilities": {
         "ignoreProtectedModeSettings": true
       }
     },
-    "safari": {
-      "downloadDir": "/Users/username/Downloads"
+    "edge": {
+       "webDriverVersion": "latest"
     }
   },
   "timeouts": {
@@ -64,7 +64,7 @@
   },
   "retry": {
     "number": 2,
-    "pollingInterval": 300
+    "pollingInterval": 11
   },
   "logger": {
     "language": "en",
