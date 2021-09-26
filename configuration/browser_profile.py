@@ -1,10 +1,14 @@
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.ie.options import Options as IExplorerOptions
+from selenium.webdriver.edge.options import Options as EdgeOptions
 
 from browser.browser_name import BrowserName
 from configuration.driver_settings.base_driver_settings import BaseDriverSettings
 from configuration.driver_settings.chrome_settings import ChromeSettings
 from configuration.driver_settings.firefox_settings import FirefoxSettings
+from configuration.driver_settings.iexplorer_settings import IExplorerSettings
+from configuration.driver_settings.edge_settings import EdgeSettings
 from core.configurations.base_browser_profile import BaseBrowserProfile
 
 
@@ -24,5 +28,17 @@ class BrowserProfile(BaseBrowserProfile):
         elif browser_name.lower() == BrowserName.FIREFOX.value.lower():
             options = FirefoxOptions()
             self._driver_settings = FirefoxSettings(options=options, settings_file=self.settings_file)
+
+        elif browser_name.lower() == BrowserName.INTERNET_EXPLORER.value.lower():
+            options = IExplorerOptions()
+            self._driver_settings = IExplorerSettings(options=options, settings_file=self.settings_file)
+
+        elif browser_name.lower() == BrowserName.EDGE.value.lower():
+            options = EdgeOptions()
+            self._driver_settings = EdgeSettings(options=options, settings_file=self.settings_file)
+
+        else:
+            raise ValueError('There are no assigned behaviour for retrieving driver driversettings for browser %s'
+                             % browser_name)
 
         return self._driver_settings

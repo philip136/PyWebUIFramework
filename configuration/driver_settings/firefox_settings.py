@@ -3,6 +3,15 @@ from configuration.driver_settings.base_driver_settings import BaseDriverSetting
 
 
 class FirefoxSettings(BaseDriverSettings):
+    def get_capabilities(self) -> Options:
+        """Set and get options for driver.
+        :return: Driver options.
+        :rtype: Options.
+        """
+        self._set_preferences(options=self._options)
+        self._set_arguments(options=self._options)
+        return super(FirefoxSettings, self).get_capabilities()
+
     def _set_preferences(self, options: Options):
         """Set preference for Firefox.
         :param options: Instance of Options.

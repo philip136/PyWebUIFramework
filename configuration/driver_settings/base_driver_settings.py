@@ -13,6 +13,10 @@ class BaseDriverSettings(ABC):
         self.__settings_file = settings_file
 
     @property
+    def settings_file(self):
+        return self.__settings_file
+
+    @property
     def browser_name(self) -> str:
         """Get browser name.
         :return: Browser name.
@@ -24,7 +28,7 @@ class BaseDriverSettings(ABC):
     def driver_settings_data(self) -> ty.Dict[str, ty.Any]:
         """Get driver settings from settings.json.
         :return: Dictionary with driver settings.
-        :return: ty.Dict[str, ty.Any].
+        :rtype: ty.Dict[str, ty.Any]
         """
         return self.__settings_file.get_value(f'driverSettings.{self.browser_name}')
 
@@ -34,8 +38,6 @@ class BaseDriverSettings(ABC):
         :rtype: OPT.
         """
         self._set_capabilities(options=self._options)
-        self._set_preferences(options=self._options)
-        self._set_arguments(options=self._options)
         return self._options
 
     @property
@@ -52,7 +54,7 @@ class BaseDriverSettings(ABC):
         :return: Browser options.
         :rtype: ty.Dict[str, ty.Any].
         """
-        return self.driver_settings_data['options']
+        return self.driver_settings_data.get('options', {})
 
     @property
     def browser_capabilities(self) -> ty.Dict[str, ty.Any]:
@@ -60,7 +62,7 @@ class BaseDriverSettings(ABC):
         :return: Browser capabilities.
         :rtype: ty.Dict[str, ty.Any].
         """
-        return self.driver_settings_data['capabilities']
+        return self.driver_settings_data.get('capabilities', {})
 
     @property
     def browser_start_arguments(self) -> ty.Dict[str, ty.Any]:
@@ -68,7 +70,7 @@ class BaseDriverSettings(ABC):
         :return: Browser arguments.
         :rtype: ty.Dict[str, ty.Any].
         """
-        return self.driver_settings_data['startArguments']
+        return self.driver_settings_data.get('startArguments', [])
 
     def _set_capabilities(self, options: OPT) -> None:
         """Set capabilities.
@@ -83,12 +85,6 @@ class BaseDriverSettings(ABC):
         """
         for argument in self.browser_start_arguments:
             options.add_argument(argument)
-
-    @abstractmethod
-    def _set_preferences(self, options):
-        """Abstract method for set preference, settings interfaces work differently.
-        :param options: Instance of Options (Chrome, Firefox and etc)."""
-        pass
 
     @property
     @abstractmethod
