@@ -1,8 +1,15 @@
-from core.localization.configurations.base_logger_configuration import BaseLoggerConfiguration
+from injector import inject
+
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
+from core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
 
 
-class LoggerConfiguration(BaseLoggerConfiguration):
-    """Implementation for BaseLoggerConfiguration."""
+class LoggerConfiguration(ILoggerConfiguration):
+    """Implementation for ILoggerConfiguration."""
+
+    @inject
+    def __init__(self, settings_file: ISettingsFile):
+        self._settings_file = settings_file
 
     @property
     def language(self) -> str:

@@ -6,7 +6,7 @@ class CheckBox(CheckableElement):
     def _element_type(self) -> str:
         return self._localization_manager.get_localized_message('loc.checkbox')
 
-    def set_state(self, state: bool):
+    def set_state(self, state: bool) -> None:
         self._log_element_action('loc.setting.value', state)
         if state != self.get_state():
             self.click()

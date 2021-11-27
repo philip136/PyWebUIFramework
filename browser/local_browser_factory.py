@@ -7,13 +7,13 @@ from webdriver_manager.microsoft import IEDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 from browser.browser_name import BrowserName
-from browser.browser_factory import BrowserFactory
+from browser.base_browser_factory import BaseBrowserFactory
 
 WD = ty.TypeVar('WD', bound=RemoteWebDriver)
 
 
-class LocalBrowserFactory(BrowserFactory):
-    """Class that implements the BrowserFactory interface."""
+class LocalBaseBrowserFactory(BaseBrowserFactory):
+    """Class that implements the BaseBrowserFactory interface."""
 
     __driver: ty.Optional[WD] = None
 

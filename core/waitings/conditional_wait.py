@@ -1,18 +1,27 @@
 import time
 import typing as ty
+from injector import inject
 
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.common.exceptions import StaleElementReferenceException
-from core.waitings.base_conditional_wait import BaseConditionalWait
+from core.waitings.interfaces.conditional_wait_interface import IConditionalWait
+from core.configurations.interfaces.timeout_configuration_interface import ITimeoutConfiguration
+from core.applications.interfaces.application_interface import IApplication
 
 T = ty.TypeVar('T')
 
 
-class ConditionalWait(BaseConditionalWait):
+class ConditionalWait(IConditionalWait):
+
+    @inject
+    def __init__(self, timeout_configuration: ITimeoutConfiguration, application: IApplication):
+        """Initialize with configuration."""
+        self._timeout_configuration = timeout_configuration
+        self._application = application
+
     def wait_for_with_driver(self, condition: ty.Callable[[WebDriver], T], timeout: int = 0,
-                             polling_interval: int = 0, message: str = str(),
-                             exceptions_to_ignore: ty.List[ty.Type[Exception]] = []) -> T:
+                             polling_interval: int = 0, message: str = str(), exceptions_to_ignore=None) -> T:
         """
         Wait for some condition using WebDriver within timeout.
         :param condition: Function for waiting
@@ -23,6 +32,8 @@ class ConditionalWait(BaseConditionalWait):
         :return: Result of condition.
         :raises: TimeoutException when timeout exceeded and condition not satisfied.
         """
+        if exceptions_to_ignore is None:
+            exceptions_to_ignore = []
         wait_timeout = self.__resolve_condition_timeout(timeout)
         check_interval = self.__resolve_polling_interval(polling_interval)
         ignored_exceptions = (exceptions_to_ignore if exceptions_to_ignore else [StaleElementReferenceException])
@@ -34,7 +45,7 @@ class ConditionalWait(BaseConditionalWait):
             self._application.set_implicit_wait_timeout(self._timeout_configuration.implicit)
 
     def wait_for(self, condition: ty.Callable[..., bool], timeout: int = 0, polling_interval: int = 0,
-                 exceptions_to_ignore: ty.List[ty.Type[Exception]] = []) -> bool:
+                 exceptions_to_ignore=None) -> bool:
         """
         Wait for some condition within timeout.
         :param condition: Function for waiting
@@ -44,6 +55,9 @@ class ConditionalWait(BaseConditionalWait):
         :return: True if condition satisfied and false otherwise.
         """
 
+        if exceptions_to_ignore is None:
+            exceptions_to_ignore = []
+
         def func():
             self.wait_for_true(condition, timeout, polling_interval, exceptions_to_ignore=exceptions_to_ignore)
             return True
@@ -51,7 +65,7 @@ class ConditionalWait(BaseConditionalWait):
         return self.__is_condition_satisfied(func, [TimeoutError])
 
     def wait_for_true(self, condition: ty.Callable[..., bool], timeout: int = 0, polling_interval: int = 0,
-                      message: str = str(), exceptions_to_ignore: ty.List[ty.Type[Exception]] = []) -> None:
+                      message: str = str(), exceptions_to_ignore=None) -> None:
         """
         Wait for some condition within timeout.
         :param condition: Predicate for waiting.
@@ -60,6 +74,8 @@ class ConditionalWait(BaseConditionalWait):
         :param message: Part of error message in case of Timeout exception.
         :param exceptions_to_ignore: Possible exceptions that have to be ignored.
         """
+        if exceptions_to_ignore is None:
+            exceptions_to_ignore = []
         wait_timeout = self.__resolve_condition_timeout(timeout)
         check_interval = self.__resolve_polling_interval(polling_interval)
         start_time = time.time()
@@ -77,8 +93,9 @@ class ConditionalWait(BaseConditionalWait):
             time.sleep(check_interval)
 
     @staticmethod
-    def __is_condition_satisfied(condition: ty.Callable[..., bool],
-                                 exceptions_to_ignore: ty.List[ty.Type[Exception]] = []) -> bool:
+    def __is_condition_satisfied(condition: ty.Callable[..., bool], exceptions_to_ignore=None) -> bool:
+        if exceptions_to_ignore is None:
+            exceptions_to_ignore = []
         try:
             return condition()
         except Exception as exception:

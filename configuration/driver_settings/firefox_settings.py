@@ -12,7 +12,7 @@ class FirefoxSettings(BaseDriverSettings):
         self._set_arguments(options=self._options)
         return super(FirefoxSettings, self).get_capabilities()
 
-    def _set_preferences(self, options: Options):
+    def _set_preferences(self, options: Options) -> None:
         """Set preference for Firefox.
         :param options: Instance of Options.
         """

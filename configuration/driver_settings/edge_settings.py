@@ -12,7 +12,8 @@ class EdgeSettings(BaseDriverSettings):
         self.__set_page_load_strategy()
         return super(EdgeSettings, self).get_capabilities()
 
-    def __set_page_load_strategy(self):
+    def __set_page_load_strategy(self) -> None:
+        """Set page load strategy for edge, by default normal."""
         value = self.driver_settings_data.get('pageLoadStrategy', 'normal')
         self._options.page_load_strategy = value.lower()
 

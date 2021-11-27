@@ -1,31 +1,24 @@
 import typing as ty
 from abc import ABC, abstractmethod
-from injector import inject
 
-from core.utilities.base_settings_file import BaseSettingsFile
-from core.localization.loggers.base_localized_logger import BaseLocalizedLogger
+from configuration.driver_settings.base_driver_settings import BaseDriverSettings
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
 
-DS = ty.TypeVar('DS')
+DS = ty.TypeVar('DS', bound=BaseDriverSettings)
 
 
-class BaseBrowserProfile(ABC):
+class IBrowserProfile(ABC):
     """Abstract class responsible for basic browser settings."""
     _driver_settings = None
-
-    @inject
-    def __init__(self, settings_file: BaseSettingsFile, localization_logger: BaseLocalizedLogger) -> None:
-        """Provides a SettingsFile to select the required configuration settings.
-        Provides a LocalizedLogger for selecting the required messages in the logs."""
-        self.__settings_file = settings_file
-        self._localization_logger = localization_logger
+    _settings_file: ISettingsFile = NotImplemented
 
     @property
-    def settings_file(self) -> BaseSettingsFile:
+    def settings_file(self) -> ISettingsFile:
         """Get SettingsFile instance.
         :return: Instance of SettingsFile.
-        :rtype: BaseSettingsFile.
+        :rtype: ISettingsFile.
         """
-        return self.__settings_file
+        return self._settings_file
 
     @property
     def browser_name(self) -> str:
@@ -33,7 +26,7 @@ class BaseBrowserProfile(ABC):
         :return: Browser name.
         :rtype: str.
         """
-        return self.__settings_file.get_value('browserName').lower()
+        return self.settings_file.get_value('browserName').lower()
 
     @property
     def is_remote(self) -> bool:
@@ -41,7 +34,7 @@ class BaseBrowserProfile(ABC):
         :return: True if connection is remote else False.
         :rtype: bool.
         """
-        return self.__settings_file.get_value('isRemote')
+        return self.settings_file.get_value('isRemote')
 
     @property
     def is_element_highlight_enabled(self) -> bool:
@@ -49,7 +42,7 @@ class BaseBrowserProfile(ABC):
         :return: True if enabled else False.
         :rtype: bool.
         """
-        return self.__settings_file.get_value('isElementHighlightEnabled')
+        return self.settings_file.get_value('isElementHighlightEnabled')
 
     @abstractmethod
     def get_driver_settings(self) -> DS:

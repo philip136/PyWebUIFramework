@@ -3,28 +3,28 @@ from itertools import chain
 from logging import Logger
 from injector import inject
 
-from core.localization.managers.base_localization_manager import BaseLocalizationManager
-from core.localization.configurations.base_logger_configuration import BaseLoggerConfiguration
-from core.utilities.base_settings_file import BaseSettingsFile
+from core.localization.managers.interfaces.localization_interface import ILocalizationManager
+from core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
 from core.utilities.json_settings_file import JsonSettingsFile
 from core.utilities.resource_file import ResourceFile
 
 
-class LocalizationManager(BaseLocalizationManager):
+class LocalizationManager(ILocalizationManager):
     """This class is used for translation messages."""
     __resource_template = 'localization/%s'
 
     @inject
-    def __init__(self, logger_configuration: BaseLoggerConfiguration, logger: Logger):
+    def __init__(self, logger_configuration: ILoggerConfiguration, logger: Logger):
         self.__resource_name = self.__resource_template % logger_configuration.language
         self.__localization_file = self.__get_localization_file(f'{logger_configuration.language}.json')
         self.__logger = logger
 
     @staticmethod
-    def __get_localization_file(filename: str) -> BaseSettingsFile:
+    def __get_localization_file(filename: str) -> ISettingsFile:
         """Get localization file from core package or another.
         :param filename: Name of file.
-        :rtype: BaseSettingsFile.
+        :rtype: ISettingsFile.
         """
         path = os.path.join('localization', filename)
         return JsonSettingsFile(path) if ResourceFile(path).exist else None

@@ -6,12 +6,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from core.elements.states.element_state import Displayed
 from core.elements.states.element_count import ElementCount
-from core.waitings.conditional_wait import ConditionalWait
-from core.elements.base_element_finder import BaseElementFinder
-from core.localization.managers.base_localization_manager import BaseLocalizationManager
-from core.localization.loggers.base_localized_logger import BaseLocalizedLogger
-from core.applications.base_application import BaseApplication
-from core.utilities.base_action_retrier import BaseActionRetrier
+from core.elements.element_finder_interface import IElementFinder
+from core.waitings.interfaces.conditional_wait_interface import IConditionalWait
+from core.localization.managers.interfaces.localization_interface import ILocalizationManager
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from core.applications.interfaces.application_interface import IApplication
+from core.utilities.interfaces.action_repeater_interface import IActionRepeater
 from core.configurations.element_cache_configuration import ElementCacheConfiguration
 
 T = ty.TypeVar('T')
@@ -19,16 +19,16 @@ T = ty.TypeVar('T')
 
 class BaseElementFactory(ABC):
     @inject
-    def __init__(self, conditional_wait: ConditionalWait, element_finder: BaseElementFinder,
-                 localization_manager: BaseLocalizationManager, application: BaseApplication,
-                 action_retrier: BaseActionRetrier, cache_configuration: ElementCacheConfiguration,
-                 localized_logger: BaseLocalizedLogger):
+    def __init__(self, conditional_wait: IConditionalWait, element_finder: IElementFinder,
+                 localization_manager: ILocalizationManager, application: IApplication,
+                 action_repeater: IActionRepeater, cache_configuration: ElementCacheConfiguration,
+                 localized_logger: ILocalizedLogger):
         """Initialize factory with required dependencies."""
         self._conditional_wait = conditional_wait
         self._element_finder = element_finder
         self._localization_manager = localization_manager
         self._application = application
-        self._action_retrier = action_retrier
+        self._action_repeater = action_repeater
         self._cache_configuration = cache_configuration
         self._localized_logger = localized_logger
 
@@ -113,8 +113,8 @@ class BaseElementFactory(ABC):
         return self._application
 
     @property
-    def action_retrier(self):
-        return self._action_retrier
+    def action_repeater(self):
+        return self._action_repeater
 
     @property
     def cache_configuration(self):

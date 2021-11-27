@@ -12,7 +12,7 @@ class ChromeSettings(BaseDriverSettings):
         self._set_arguments(options=self._options)
         return super(ChromeSettings, self).get_capabilities()
 
-    def _set_preferences(self, options: Options):
+    def _set_preferences(self, options: Options) -> None:
         """Set preference for Chrome.
         :param options: Instance of Options.
         """

@@ -2,18 +2,22 @@ import os
 import typing as ty
 from abc import ABC, abstractmethod
 
-from core.utilities.base_settings_file import BaseSettingsFile
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
 
 OPT = ty.TypeVar('OPT')
 
 
 class BaseDriverSettings(ABC):
-    def __init__(self, options: OPT, settings_file: BaseSettingsFile) -> None:
+    def __init__(self, options: OPT, settings_file: ISettingsFile) -> None:
         self._options = options
         self.__settings_file = settings_file
 
     @property
-    def settings_file(self):
+    def settings_file(self) -> ISettingsFile:
+        """Get settings file instance.
+        :return: SettingsFile instance.
+        :rtype: ISettingsFile.
+        """
         return self.__settings_file
 
     @property
@@ -85,6 +89,12 @@ class BaseDriverSettings(ABC):
         """
         for argument in self.browser_start_arguments:
             options.add_argument(argument)
+
+    @abstractmethod
+    def _set_preferences(self, options):
+        """Abstract method for set preference, settings interfaces work differently.
+        :param options: Instance of Options (Chrome, Firefox and etc)."""
+        pass
 
     @property
     @abstractmethod

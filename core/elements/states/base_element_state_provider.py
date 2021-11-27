@@ -2,13 +2,13 @@ import typing as ty
 from abc import ABC, abstractmethod
 
 from selenium.webdriver.common.by import By
-from core.elements.base_element_finder import BaseElementFinder
-from core.waitings.base_conditional_wait import BaseConditionalWait
+from core.elements.element_finder_interface import IElementFinder
+from core.waitings.interfaces.conditional_wait_interface import IConditionalWait
 
 
 class BaseElementStateProvider(ABC):
-    def __init__(self, element_locator: ty.Tuple[By, str], conditional_wait: BaseConditionalWait,
-                 element_finder: BaseElementFinder):
+    def __init__(self, element_locator: ty.Tuple[By, str], conditional_wait: IConditionalWait,
+                 element_finder: IElementFinder):
         """Initialize provider with required dependencies."""
         self._element_locator = element_locator
         self._conditional_wait = conditional_wait

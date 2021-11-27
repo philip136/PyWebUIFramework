@@ -3,14 +3,15 @@ from abc import ABC, abstractmethod
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from core.elements.states.element_state import Displayed
-from core.elements.base_element_finder import BaseElementFinder
+from core.elements.states.element_state import Displayed, ExistsInAnyState
+from core.elements.element_finder_interface import IElementFinder
 
 
 class BaseElementCacheHandler(ABC):
     """Allows to use cached element."""
 
-    def __init__(self, locator: ty.Tuple[By, str], state: str, finder: BaseElementFinder):
+    def __init__(self, locator: ty.Tuple[By, str], state: ty.Type[ty.Union[Displayed, ExistsInAnyState]],
+                 finder: IElementFinder):
         """Initialize handler with default state and finder."""
         self._locator = locator
         self._state = state

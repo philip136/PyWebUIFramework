@@ -11,6 +11,7 @@ class ElementCacheHandler(BaseElementCacheHandler):
         :param timeout: Timeout used to retrieve the element when refresh is needed.
         :param custom_state: Element custom state.
         :return: Cached element.
+        :rtype: WebElement.
         """
         if self.is_refresh_needed(custom_state):
             self.__remote_element = self.__element_finder.find_element(self._locator, self._state, timeout)

@@ -3,11 +3,11 @@ import typing as ty
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.remote.webdriver import WebDriver
-from core.applications.base_application import BaseApplication
-from core.configurations.base_browser_profile import BaseBrowserProfile
-from core.localization.loggers.base_localized_logger import BaseLocalizedLogger
+from core.applications.interfaces.application_interface import IApplication
+from core.configurations.interfaces.browser_profile_interface import IBrowserProfile
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from core.configurations.interfaces.timeout_configuration_interface import ITimeoutConfiguration
 from core.waitings.conditional_wait import ConditionalWait
-from configuration.timeout_configuration import TimeoutConfiguration
 from browser.browser_tab_navigation import BrowserTabNavigation
 from browser.java_script import JavaScript
 from browser.alert_actions import AlertActions
@@ -15,17 +15,24 @@ from browser.alert_actions import AlertActions
 WD = ty.TypeVar('WD', bound=WebDriver)
 
 
-class Browser(BaseApplication):
-    def __init__(self, driver: WD, localized_logger: BaseLocalizedLogger, browser_profile: BaseBrowserProfile,
-                 timeouts: TimeoutConfiguration) -> None:
-
+class Browser(IApplication):
+    def __init__(self, driver: WD, localized_logger: ILocalizedLogger, browser_profile: IBrowserProfile,
+                 timeouts: ITimeoutConfiguration) -> None:
         self.__driver = driver
         self.__localized_logger = localized_logger
         self.__browser_profile = browser_profile
         self.__timeouts = timeouts
         self.__implicit_timeout = timeouts.implicit
         self.__conditional_wait = ConditionalWait(timeouts, self)
-        self.driver.implicitly_wait(self.__implicit_timeout)
+        self.__driver.implicitly_wait(self.__implicit_timeout)
+
+    @property
+    def browser_profile(self) -> IBrowserProfile:
+        """Get browser profile instance.
+        :return: BrowserProfile instance.
+        :rtype: IBrowserProfile.
+        """
+        return self.__browser_profile
 
     @property
     def browser_profile(self):

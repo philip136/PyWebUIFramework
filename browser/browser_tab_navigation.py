@@ -2,9 +2,10 @@ import typing as ty
 
 from browser.java_script import JavaScript
 from selenium.webdriver.remote.webdriver import WebDriver
-from core.localization.loggers.base_localized_logger import BaseLocalizedLogger
+from core.applications.interfaces.application_interface import IApplication
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
 
-B = ty.TypeVar('B')
+B = ty.TypeVar('B', bound=IApplication)
 WD = ty.TypeVar('WD', bound=WebDriver)
 TAB = ty.TypeVar('TAB')
 
@@ -12,7 +13,7 @@ TAB = ty.TypeVar('TAB')
 class BrowserTabNavigation:
     """Class for navigation through tabs."""
 
-    def __init__(self, web_driver: WD, localized_logger: BaseLocalizedLogger, browser: B):
+    def __init__(self, web_driver: WD, localized_logger: ILocalizedLogger, browser: B):
         self.__web_driver = web_driver
         self.__localized_logger = localized_logger
         self.__browser = browser

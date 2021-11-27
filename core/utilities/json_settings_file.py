@@ -6,11 +6,11 @@ import typing as ty
 from jsonpath_ng import DatumInContext
 from jsonpath_ng import parse
 
-from core.utilities.base_settings_file import BaseSettingsFile
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
 from core.utilities.resource_file import ResourceFile
 
 
-class JsonSettingsFile(BaseSettingsFile):
+class JsonSettingsFile(ISettingsFile):
     """Class which defines work with .json settings file."""
 
     def __init__(self, resource_name: str, root_dir: str = None):

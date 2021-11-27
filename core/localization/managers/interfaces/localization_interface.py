@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class BaseLocalizationManager(ABC):
+class ILocalizationManager(ABC):
     """This class is used for translation messages."""
 
     @abstractmethod
@@ -9,7 +9,6 @@ class BaseLocalizationManager(ABC):
         """Get localized message from resources.
         :param message_key: Key in resource file.
         :param message_args: Params which will be provided to template of localized message.
-
         :return: Localized message.
         :rtype: str.
         """

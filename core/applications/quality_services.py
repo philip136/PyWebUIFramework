@@ -1,19 +1,18 @@
 import typing as ty
-from abc import ABC
 
 from injector import Injector
-from core.applications.base_application import BaseApplication
+from core.applications.interfaces.application_interface import IApplication
 from core.applications.quality_module import QualityModule
 
 WD = ty.TypeVar('WD')
-APP = ty.TypeVar('APP', bound=BaseApplication)
 
 
-class QualityServices(BaseApplication, ABC):
+class QualityServices(IApplication):
     __app = None
     __injector = None
 
-    def __init__(self, application_provider: ty.Callable[..., BaseApplication], service_module: QualityModule) -> None:
+    def __init__(self, application_provider: ty.Callable[..., IApplication],
+                 service_module: QualityModule) -> None:
         """Create QualityModule which bound core objects."""
         self._module = QualityModule(application_provider) if service_module is None else service_module
         self.__injector = Injector([self._module])
@@ -30,12 +29,9 @@ class QualityServices(BaseApplication, ABC):
     def driver(self) -> ty.Optional[WD]:
         """Get driver.
         :return: Driver instance if app is started else None.
-        :rtype: """
+        :rtype: Optional[WD].
+        """
         return self.__app.driver if self.__app is not None else None
-
-    # TODO: Определить более строгий интерфейс, так как данные метод реализуется только в сущности Browser
-    def set_implicit_wait_timeout(self, timeout):
-        pass
 
     @property
     def _is_app_started(self) -> bool:
@@ -45,17 +41,17 @@ class QualityServices(BaseApplication, ABC):
         """
         return self.__app is not None and self.is_started
 
-    def _set_app(self, application: APP) -> None:
+    def _set_app(self, application: IApplication) -> None:
         """Set application
-        :param application: Class that implements the interface BaseApplication.
+        :param application: Class that implements the interface IApplication.
         """
         self.__app = application
 
-    def get_app(self, start_application_function: ty.Callable) -> APP:
+    def get_app(self, start_application_function: ty.Callable) -> IApplication:
         """Get application, if app is not set then set using the install function.
         :param start_application_function: Function to install the app.
         :return: Instance of application.
-        :rtype: BaseApplication.
+        :rtype: IApplication.
         """
         if not self._is_app_started:
             self._set_app(start_application_function())

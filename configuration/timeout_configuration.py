@@ -1,6 +1,6 @@
 from injector import inject
 from configuration.timeout import Timeout
-from core.utilities.base_settings_file import BaseSettingsFile
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
 from core.configurations.timeout_configuration import TimeoutConfigurationCore
 
 
@@ -8,7 +8,7 @@ class TimeoutConfiguration(TimeoutConfigurationCore):
     """Class for settings timeouts."""
 
     @inject
-    def __init__(self, settings_file: BaseSettingsFile):
+    def __init__(self, settings_file: ISettingsFile) -> None:
         """Provides a SettingsFile to select the required configuration settings and get durations
         for script and page load.
         """
