@@ -3,16 +3,16 @@ import typing as ty
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException
-from core.elements.base_element_finder import BaseElementFinder
+from core.elements.element_finder_interface import IElementFinder
 from core.elements.states.element_state import ExistsInAnyState
-from core.waitings.base_conditional_wait import BaseConditionalWait
+from core.waitings.interfaces.conditional_wait_interface import IConditionalWait
 from core.elements.base_element_cache_handler import BaseElementCacheHandler
 from core.elements.states.base_element_state_provider import BaseElementStateProvider
 
 
 class CachedElementStateProvider(BaseElementStateProvider):
-    def __init__(self, element_locator: ty.Tuple[By, str], conditional_wait: BaseConditionalWait,
-                 element_finder: BaseElementFinder, element_cache_handler: BaseElementCacheHandler):
+    def __init__(self, element_locator: ty.Tuple[By, str], conditional_wait: IConditionalWait,
+                 element_finder: IElementFinder, element_cache_handler: BaseElementCacheHandler):
         super(CachedElementStateProvider, self).__init__(element_locator, conditional_wait, element_finder)
         self.__element_cache_handler = element_cache_handler
 

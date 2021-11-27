@@ -4,16 +4,16 @@ from threading import local
 from injector import Injector
 from browser.browser import Browser
 from browser.browser_module import BrowserModule
-from browser.browser_factory import BrowserFactory
-from browser.local_browser_factory import LocalBrowserFactory
+from browser.base_browser_factory import BaseBrowserFactory
+from browser.local_browser_factory import LocalBaseBrowserFactory
 from configuration.browser_profile import BrowserProfile
 from core.applications.quality_services import QualityServices
 from core.waitings.conditional_wait import ConditionalWait
 from elements.element_factory import ElementFactory
-from core.localization.loggers.base_localized_logger import BaseLocalizedLogger
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
 
 T = ty.TypeVar('T', bound=QualityServices)
-BF = ty.TypeVar('BF', bound=BrowserFactory)
+BF = ty.TypeVar('BF', bound=BaseBrowserFactory)
 
 LOCAL = local()
 
@@ -43,7 +43,7 @@ class PyQualityServices(QualityServices):
     @classmethod
     def get_browser_factory(cls) -> BF:
         """Select a factory for browsers if it does not exist, install it.
-        :return: Factory that implements BrowserFactory.
+        :return: Factory that implements BaseBrowserFactory.
         :rtype: BF.
         """
         if getattr(cls.get_instance(), 'browser_factory', None) is None:
@@ -52,8 +52,8 @@ class PyQualityServices(QualityServices):
 
     @classmethod
     def set_browser_factory(cls, browser_factory: BF) -> None:
-        """Set factory in current instance that implements BrowserFactory.
-        :param browser_factory: Factory implementing the interface BrowserFactory.
+        """Set factory in current instance that implements BaseBrowserFactory.
+        :param browser_factory: Factory implementing the interface BaseBrowserFactory.
         """
         setattr(cls.get_instance().__class__, 'browser_factory', browser_factory)
 
@@ -91,12 +91,12 @@ class PyQualityServices(QualityServices):
         return cls.get_service_provider().get(clz)
 
     @classmethod
-    def get_local_browser_factory(cls) -> LocalBrowserFactory:
-        """Get LocalBrowserFactory from injector instance which implements BrowserFactory.
-        :return: Get LocalBrowserFactory instance.
-        :rtype: LocalBrowserFactory.
+    def get_local_browser_factory(cls) -> LocalBaseBrowserFactory:
+        """Get LocalBaseBrowserFactory from injector instance which implements BaseBrowserFactory.
+        :return: Get LocalBaseBrowserFactory instance.
+        :rtype: LocalBaseBrowserFactory.
         """
-        return cls.get(LocalBrowserFactory)
+        return cls.get(LocalBaseBrowserFactory)
 
     @classmethod
     def get_element_factory(cls) -> ElementFactory:
@@ -104,7 +104,7 @@ class PyQualityServices(QualityServices):
 
     @classmethod
     def get_browser_profile(cls) -> BrowserProfile:
-        """Get BrowserProfile from injector instance which implements BaseBrowserProfile.
+        """Get BrowserProfile from injector instance which implements IBrowserProfile.
         :return: Get BrowserProfile instance.
         :rtype: BrowserProfile.
         """
@@ -119,9 +119,9 @@ class PyQualityServices(QualityServices):
         return cls.get(ConditionalWait)
 
     @classmethod
-    def get_localized_logger(cls) -> BaseLocalizedLogger:
+    def get_localized_logger(cls) -> ILocalizedLogger:
         """Get LocalizationLogger from injector instance.
         :return: Get LocalizationLogger instance.
         :rtype: LocalizationLogger.
         """
-        return cls.get(BaseLocalizedLogger)
+        return cls.get(ILocalizedLogger)

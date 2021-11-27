@@ -1,16 +1,8 @@
 from abc import ABC, abstractmethod
-from datetime import timedelta
-
-from injector import inject
-from core.utilities.base_settings_file import BaseSettingsFile
 
 
-class BaseRetryConfiguration(ABC):
+class IRetryConfiguration(ABC):
     """Describes retry configuration."""
-
-    @inject
-    def __init__(self, settings_file: BaseSettingsFile):
-        self._settings_file = settings_file
 
     @property
     @abstractmethod
@@ -26,6 +18,6 @@ class BaseRetryConfiguration(ABC):
     def polling_interval(self) -> int:
         """Get the polling interval used in retry.
         :return: Timedelta for polling interval.
-        :rtype: timedelta.
+        :rtype: int.
         """
         pass

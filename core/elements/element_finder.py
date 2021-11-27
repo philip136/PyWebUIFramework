@@ -3,46 +3,46 @@ import typing as ty
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.remote.webelement import WebElement
-from core.elements.states.element_state import ExistsInAnyState
+from core.elements.states.element_state import ExistsInAnyState, Displayed
 from core.elements.states.desired_state import DesiredState
-from core.elements.base_element_finder import BaseElementFinder
+from core.elements.element_finder_interface import IElementFinder
 
 
-class ElementFinder(BaseElementFinder):
+class ElementFinder(IElementFinder):
     def find_element(self, locator: ty.Tuple[By, str],
-                     desired_state: ty.Callable[[WebElement], bool] = ExistsInAnyState,
+                     state: ty.Type[ty.Union[Displayed, ExistsInAnyState]] = ExistsInAnyState(),
                      timeout: int = 0) -> WebElement:
         """
         Find element in desired state defined by callable object.
-        :param locator: element locator.
-        :param desired_state: desired element state as callable object.
-        :param timeout: timeout for search.
+        :param locator: Element locator.
+        :param state: Element state as callable object.
+        :param timeout: Timeout for search.
         :return: Found element.
         :raises: NoSuchElementException if element was not found in time in desired state.
         """
-        state = DesiredState(desired_state, "desired", False, True)
+        state = DesiredState(state, "desired", False, True)
         return self.find_elements_in_state(locator, state, timeout)[0]
 
     def find_elements(self, locator: ty.Tuple[By, str],
-                      desired_state: ty.Callable[[WebElement], bool] = ExistsInAnyState,
+                      state: ty.Type[ty.Union[Displayed, ExistsInAnyState]] = ExistsInAnyState(),
                       timeout: int = 0) -> ty.List[WebElement]:
         """
         Find elements in desired state defined by callable object.
-        :param locator: element locator.
-        :param desired_state: desired element state as callable object.
-        :param timeout: timeout for search.
+        :param locator: Element locator.
+        :param state: Element state as callable object.
+        :param timeout: Timeout for search.
         :return: List of found elements.
         """
-        state = DesiredState(desired_state, "desired", False, True)
+        state = DesiredState(state, "desired", False, True)
         return self.find_elements_in_state(locator, state, timeout)
 
     def find_elements_in_state(self, locator: ty.Tuple[By, str], desired_state: DesiredState,
                                timeout: int = 0) -> ty.List[WebElement]:
         """
         Find elements in desired state defined by DesiredState object.
-        :param locator: element locator.
-        :param desired_state: desired element state.
-        :param timeout: timeout for search.
+        :param locator: Element locator.
+        :param desired_state: Desired element state.
+        :param timeout: Timeout for search.
         :return: List of found elements.
         """
         elements = {"found": [], "result": []}

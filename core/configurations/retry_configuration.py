@@ -1,7 +1,14 @@
-from core.configurations.base_retry_configuration import BaseRetryConfiguration
+from injector import inject
+
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
+from core.configurations.interfaces.retry_configuration_interface import IRetryConfiguration
 
 
-class RetryConfiguration(BaseRetryConfiguration):
+class RetryConfiguration(IRetryConfiguration):
+    @inject
+    def __init__(self, settings_file: ISettingsFile):
+        self._settings_file = settings_file
+        
     @property
     def number(self) -> int:
         """Get the number of attempts to retry.

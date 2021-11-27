@@ -5,7 +5,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from core.elements.base_element_factory import BaseElementFactory
 from core.elements.states.element_state import Displayed
 from core.elements.states.element_count import ElementCount
-from core.elements.base_element import BaseElement
+from core.elements.base_parent_element import BaseParentElement
 
 T = ty.TypeVar('T')
 
@@ -27,7 +27,7 @@ class ElementFactory(BaseElementFactory):
         """
         return element_supplier(locator, name, state)
 
-    def find_child_element(self, parent_element: BaseElement,
+    def find_child_element(self, parent_element: BaseParentElement,
                            element_supplier: ty.Callable[[ty.Tuple[By, str], str,
                                                           ty.Callable[[WebElement], bool]], T],
                            child_locator: ty.Tuple[By, str], name: str = str(),
@@ -45,7 +45,7 @@ class ElementFactory(BaseElementFactory):
         locator = self._generate_absolute_child_locator(parent_element.locator, child_locator)
         return element_supplier(locator, element_name, state)
 
-    def find_child_elements(self, parent_element: BaseElement,
+    def find_child_elements(self, parent_element: BaseParentElement,
                             element_supplier: ty.Callable[[ty.Tuple[By, str], str,
                                                            ty.Callable[[WebElement], bool]], T],
                             child_locator: ty.Tuple[By, str], name: str = str(),

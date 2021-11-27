@@ -10,6 +10,24 @@ T = ty.TypeVar('T')
 
 
 class BaseParentElement(ABC):
+    @property
+    @abstractmethod
+    def name(self) -> str:
+        """Get name of element.
+        :return: Element name.
+        :rtype: str.
+        """
+        pass
+
+    @property
+    @abstractmethod
+    def locator(self) -> ty.Tuple[By, str]:
+        """Get locator of element.
+        :return: Element locator.
+        :rtype: str.
+        """
+        pass
+
     @abstractmethod
     def find_child_element(self, supplier: ty.Callable[[ty.Tuple[By, str], str, ty.Callable], T],
                            child_locator: ty.Tuple[By, str], name: str,
@@ -39,5 +57,15 @@ class BaseParentElement(ABC):
         :return: Instance of child element.
 
         :rtype: T.
+        """
+        pass
+
+    @abstractmethod
+    def get_element(self, timeout: int = 0) -> WebElement:
+        """Get current element by specified locator.
+        Default timeout is provided in TimeoutConfiguration.
+        :raises: NoSuchElementException if element not found.
+        :return: Instance of WebElement if found.
+        :rtype: WebElement.
         """
         pass

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class BaseApplication(ABC):
+class IApplication(ABC):
     """Abstraction for base application."""
 
     @property
@@ -14,9 +14,4 @@ class BaseApplication(ABC):
     @abstractmethod
     def driver(self):
         """Get driver."""
-        pass
-
-    @abstractmethod
-    def set_implicit_wait_timeout(self, timeout: int):
-        """Set implicit wait timeout."""
         pass

@@ -2,7 +2,7 @@ import typing as ty
 from abc import ABC, abstractmethod
 
 
-class BaseSettingsFile(ABC):
+class ISettingsFile(ABC):
     @abstractmethod
     def get_value(self, path: str) -> ty.Any:
         """Get single value by specified path from settings file.

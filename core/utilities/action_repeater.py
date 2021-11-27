@@ -1,12 +1,19 @@
 import time
 import typing as ty
+from injector import inject
 
-from core.utilities.base_action_retrier import BaseActionRetrier
+from core.utilities.interfaces.action_repeater_interface import IActionRepeater
+from core.configurations.interfaces.retry_configuration_interface import IRetryConfiguration
 
 T = ty.TypeVar('T')
 
 
-class ActionRetrier(BaseActionRetrier):
+class ActionRepeater(IActionRepeater):
+    @inject
+    def __init__(self, retry_configuration: IRetryConfiguration):
+        """Initialize repeater with configuration."""
+        self._retry_configuration = retry_configuration
+        
     def do_with_retry(self, function: ty.Callable[..., T], handled_exceptions: ty.List[ty.Type[Exception]] = []) -> T:
         """
         Try to execute function repeatedly.

@@ -1,25 +1,19 @@
-from logging import Logger
+import typing as ty
 from abc import ABC, abstractmethod
 
-from injector import inject
-from core.localization.managers.base_localization_manager import BaseLocalizationManager
-from core.localization.configurations.base_logger_configuration import BaseLoggerConfiguration
+from core.elements.states.element_state import Displayed, ExistsInAnyState
+from core.localization.managers.interfaces.localization_interface import ILocalizationManager
+from core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
 
 
-class BaseLocalizedLogger(ABC):
+class ILocalizedLogger(ABC):
     """Log messages in current language."""
-
-    @inject
-    def __init__(self, localization_manager: BaseLocalizationManager, logger: Logger,
-                 configuration: BaseLoggerConfiguration) -> None:
-        """Initialize with localization manager and logger."""
-        self._localization_manager = localization_manager
-        self._configuration = configuration
-        self._logger = logger
+    _localization_manager: ILocalizationManager = NotImplemented
+    _configuration: ILoggerConfiguration = NotImplemented
 
     @abstractmethod
-    def info_element_action(self, element_type: str, element_name: str, message_key: str,
-                            *message_args, **logger_kwargs) -> None:
+    def info_element_action(self, element_type: ty.Type[ty.Union[Displayed, ExistsInAnyState]],
+                            element_name: str, message_key: str, *message_args, **logger_kwargs) -> None:
         """Log localized message for action with INFO level which is applied for element.
         :param element_type: Type of the element.
         :param element_name: Name of the element.
@@ -30,12 +24,19 @@ class BaseLocalizedLogger(ABC):
         pass
 
     @property
-    def localization_manager(self):
+    def localization_manager(self) -> ILocalizationManager:
+        """Get instance of localization manager.
+        :return: Instance of LocalizationManager.
+        :rtype: ILocalizationManager.
+        """
         return self._localization_manager
 
     @property
-    def configuration(self) -> BaseLoggerConfiguration:
-        """Get logger configuration."""
+    def configuration(self) -> ILoggerConfiguration:
+        """Get logger configuration.
+        :return: Instance of logger configuration.
+        :rtype: ILoggerConfiguration.
+        """
         return self._configuration
 
     @abstractmethod

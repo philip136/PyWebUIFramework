@@ -1,10 +1,10 @@
 import typing as ty
 
-from selenium.webdriver.remote.webelement import WebElement
+from core.elements.states.element_state import ExistsInAnyState, Displayed
 
 
 class DesiredState:
-    def __init__(self, element_state_condition: ty.Callable[[WebElement], bool], state_name: str,
+    def __init__(self, element_state_condition: ty.Type[ty.Union[Displayed, ExistsInAnyState]], state_name: str,
                  except_timeout_exception: bool = False, raise_no_such_element_exception: bool = False):
         self.__element_state_condition = element_state_condition
         self.__except_timeout_exception = except_timeout_exception

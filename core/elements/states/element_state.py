@@ -8,6 +8,9 @@ class ExistsInAnyState:
         """Return True in any case."""
         return True
 
+    def __repr__(self):
+        return "Element is exist in any state"
+
 
 class Displayed:
     """Determines element's displayed state."""
@@ -15,3 +18,6 @@ class Displayed:
     def __call__(self, element: WebElement):
         """Return true if elements is displayed and false otherwise."""
         return element.is_displayed()
+
+    def __repr__(self):
+        return "Element is displayed"

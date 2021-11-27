@@ -1,15 +1,8 @@
-from injector import inject
 from abc import ABC, abstractmethod
 
-from core.utilities.base_settings_file import BaseSettingsFile
 
-
-class BaseLoggerConfiguration(ABC):
+class ILoggerConfiguration(ABC):
     """Describes logger configuration."""
-
-    @inject
-    def __init__(self, settings_file: BaseSettingsFile):
-        self._settings_file = settings_file
 
     @property
     @abstractmethod
