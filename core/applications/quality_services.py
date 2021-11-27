@@ -1,12 +1,10 @@
 import typing as ty
-from abc import ABC
 
 from injector import Injector
 from core.applications.interfaces.application_interface import IApplication
 from core.applications.quality_module import QualityModule
 
 WD = ty.TypeVar('WD')
-APP = ty.TypeVar('APP', bound=IApplication)
 
 
 class QualityServices(IApplication):
@@ -43,13 +41,13 @@ class QualityServices(IApplication):
         """
         return self.__app is not None and self.is_started
 
-    def _set_app(self, application: APP) -> None:
+    def _set_app(self, application: IApplication) -> None:
         """Set application
         :param application: Class that implements the interface IApplication.
         """
         self.__app = application
 
-    def get_app(self, start_application_function: ty.Callable) -> APP:
+    def get_app(self, start_application_function: ty.Callable) -> IApplication:
         """Get application, if app is not set then set using the install function.
         :param start_application_function: Function to install the app.
         :return: Instance of application.
