@@ -90,6 +90,12 @@ class BaseDriverSettings(ABC):
         for argument in self.browser_start_arguments:
             options.add_argument(argument)
 
+    @abstractmethod
+    def _set_preferences(self, options):
+        """Abstract method for set preference, settings interfaces work differently.
+        :param options: Instance of Options (Chrome, Firefox and etc)."""
+        pass
+
     @property
     @abstractmethod
     def download_dir_capability_key(self) -> str:
