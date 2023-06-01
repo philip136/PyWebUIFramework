@@ -1,7 +1,7 @@
 import os
 
-from elements.label import Label
-from browser.py_quality_services import PyQualityServices
+from src.elements.label import Label
+from src.browser.py_quality_services import PyQualityServices
 from selenium.common.exceptions import WebDriverException
 
 

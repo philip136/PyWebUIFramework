@@ -1,4 +1,4 @@
-from forms.base_form import BaseForm
+from src.forms.base_form import BaseForm
 
 from selenium.webdriver.common.by import By
 

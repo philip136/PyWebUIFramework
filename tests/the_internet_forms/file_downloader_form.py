@@ -1,5 +1,5 @@
-from forms.base_form import BaseForm
-from elements.link import Link
+from src.forms.base_form import BaseForm
+from src.elements import Link
 from selenium.webdriver.common.by import By
 
 

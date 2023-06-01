@@ -1,6 +1,6 @@
 import os
 
-from browser.py_quality_services import PyQualityServices
+from src.browser.py_quality_services import PyQualityServices
 from selenium.webdriver.common.by import By
 from tests.the_internet_forms.file_downloader_form import FileDownloaderForm
 from tests.utils.file_util import FileUtil
