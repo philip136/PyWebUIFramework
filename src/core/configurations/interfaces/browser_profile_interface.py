@@ -1,8 +1,8 @@
 import typing as ty
 from abc import ABC, abstractmethod
 
-from src.configuration.driver_settings.base_driver_settings import BaseDriverSettings
-from src.core.utilities.interfaces.settings_file_interface import ISettingsFile
+from configuration.driver_settings.base_driver_settings import BaseDriverSettings
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
 
 DS = ty.TypeVar('DS', bound=BaseDriverSettings)
 

@@ -1,7 +1,7 @@
 import typing as ty
 from abc import ABC, abstractmethod
 
-from src.browser.browser import Browser
+from browser.browser import Browser
 
 WD = ty.TypeVar('WD')
 

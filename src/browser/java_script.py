@@ -1,7 +1,7 @@
 import os
 from enum import Enum
 
-from src.core.utilities.resource_file import ResourceFile
+from core.utilities.resource_file import ResourceFile
 
 
 class JavaScript(Enum):

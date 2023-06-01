@@ -1,9 +1,9 @@
 import typing as ty
 from abc import ABC, abstractmethod
 
-from src.core.elements.states.element_state import Displayed, ExistsInAnyState
-from src.core.localization.managers.interfaces.localization_interface import ILocalizationManager
-from src.core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
+from core.elements.states.element_state import Displayed, ExistsInAnyState
+from core.localization.managers.interfaces.localization_interface import ILocalizationManager
+from core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
 
 
 class ILocalizedLogger(ABC):

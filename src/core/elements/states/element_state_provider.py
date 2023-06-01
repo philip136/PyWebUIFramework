@@ -1,9 +1,9 @@
 import typing as ty
 
 from selenium.webdriver.remote.webelement import WebElement
-from src.core.elements.states.desired_state import DesiredState
-from src.core.elements.states.element_state import Displayed, ExistsInAnyState
-from src.core.elements.states.base_element_state_provider import BaseElementStateProvider
+from core.elements.states.desired_state import DesiredState
+from core.elements.states.element_state import Displayed, ExistsInAnyState
+from core.elements.states.base_element_state_provider import BaseElementStateProvider
 
 
 class ElementStateProvider(BaseElementStateProvider):

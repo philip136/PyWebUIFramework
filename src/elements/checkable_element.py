@@ -1,6 +1,6 @@
 from abc import ABC
 
-from src.core.elements.base_element import BaseElement
+from core.elements.base_element import BaseElement
 
 
 class CheckableElement(BaseElement, ABC):

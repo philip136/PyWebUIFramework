@@ -1,5 +1,5 @@
 import pytest
-from src.browser.py_quality_services import PyQualityServices
+from browser.py_quality_services import PyQualityServices
 
 
 @pytest.fixture(scope='session')

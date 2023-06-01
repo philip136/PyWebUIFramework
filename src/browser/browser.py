@@ -3,14 +3,14 @@ import typing as ty
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.remote.webdriver import WebDriver
-from src.core.applications.interfaces.application_interface import IApplication
-from src.core.configurations.interfaces.browser_profile_interface import IBrowserProfile
-from src.core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
-from src.core.configurations.interfaces.timeout_configuration_interface import ITimeoutConfiguration
-from src.core.waitings.conditional_wait import ConditionalWait
-from src.browser.browser_tab_navigation import BrowserTabNavigation
-from src.browser.java_script import JavaScript
-from src.browser.alert_actions import AlertActions
+from core.applications.interfaces.application_interface import IApplication
+from core.configurations.interfaces.browser_profile_interface import IBrowserProfile
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from core.configurations.interfaces.timeout_configuration_interface import ITimeoutConfiguration
+from core.waitings.conditional_wait import ConditionalWait
+from browser.browser_tab_navigation import BrowserTabNavigation
+from browser.java_script import JavaScript
+from browser.alert_actions import AlertActions
 
 WD = ty.TypeVar('WD', bound=WebDriver)
 

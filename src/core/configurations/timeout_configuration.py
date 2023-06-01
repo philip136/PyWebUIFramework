@@ -1,7 +1,7 @@
 from injector import inject
 
-from src.core.utilities.interfaces.settings_file_interface import ISettingsFile
-from src.core.configurations.interfaces.timeout_configuration_interface import ITimeoutConfiguration
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
+from core.configurations.interfaces.timeout_configuration_interface import ITimeoutConfiguration
 
 
 class TimeoutConfigurationCore(ITimeoutConfiguration):

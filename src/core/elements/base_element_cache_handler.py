@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from src.core.elements.states.element_state import Displayed, ExistsInAnyState
-from src.core.elements.element_finder_interface import IElementFinder
+from core.elements.states.element_state import Displayed, ExistsInAnyState
+from core.elements.element_finder_interface import IElementFinder
 
 
 class BaseElementCacheHandler(ABC):

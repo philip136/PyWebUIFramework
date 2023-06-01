@@ -2,8 +2,8 @@ import time
 import typing as ty
 from injector import inject
 
-from src.core.utilities.interfaces.action_repeater_interface import IActionRepeater
-from src.core.configurations.interfaces.retry_configuration_interface import IRetryConfiguration
+from core.utilities.interfaces.action_repeater_interface import IActionRepeater
+from core.configurations.interfaces.retry_configuration_interface import IRetryConfiguration
 
 T = ty.TypeVar('T')
 

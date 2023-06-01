@@ -1,9 +1,9 @@
 import typing as ty
 
-from src.core.configurations.element_cache_configuration import ElementCacheConfiguration
-from src.core.localization.configurations.logger_configuration import LoggerConfiguration
-from src.core.configurations.retry_configuration import RetryConfiguration
-from src.core.configurations.timeout_configuration import TimeoutConfigurationCore
+from core.configurations.element_cache_configuration import ElementCacheConfiguration
+from core.localization.configurations.logger_configuration import LoggerConfiguration
+from core.configurations.retry_configuration import RetryConfiguration
+from core.configurations.timeout_configuration import TimeoutConfigurationCore
 
 
 class ConfigurationModule:

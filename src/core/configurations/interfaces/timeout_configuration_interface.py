@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from src.core.utilities.interfaces.settings_file_interface import ISettingsFile
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
 
 
 class ITimeoutConfiguration(ABC):

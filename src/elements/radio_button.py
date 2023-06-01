@@ -1,4 +1,4 @@
-from src.elements.checkable_element import CheckableElement
+from elements.checkable_element import CheckableElement
 
 
 class RadioButton(CheckableElement):

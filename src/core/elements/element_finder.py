@@ -3,9 +3,9 @@ import typing as ty
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.remote.webelement import WebElement
-from src.core.elements.states.element_state import ExistsInAnyState, Displayed
-from src.core.elements.states.desired_state import DesiredState
-from src.core.elements.element_finder_interface import IElementFinder
+from core.elements.states.element_state import ExistsInAnyState, Displayed
+from core.elements.states.desired_state import DesiredState
+from core.elements.element_finder_interface import IElementFinder
 
 
 class ElementFinder(IElementFinder):

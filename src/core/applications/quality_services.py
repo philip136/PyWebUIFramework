@@ -1,8 +1,8 @@
 import typing as ty
 
 from injector import Injector
-from src.core.applications.interfaces.application_interface import IApplication
-from src.core.applications.quality_module import QualityModule
+from core.applications.interfaces.application_interface import IApplication
+from core.applications.quality_module import QualityModule
 
 WD = ty.TypeVar('WD')
 

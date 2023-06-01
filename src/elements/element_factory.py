@@ -1,16 +1,15 @@
 import typing as ty
 
 from selenium.webdriver.common.by import By
-from src.core.elements.element_factory import ElementFactory as ElementFactoryCore
-from src.core.elements.states.element_state import Displayed
-from src.elements.button import Button
-from src.elements.link import Link
-from src.elements.label import Label
-from src.elements.check_box import CheckBox
-from src.elements.combo_box import ComboBox
-from src.elements.text_box import TextBox
-from src.elements.radio_button import RadioButton
-
+from core.elements.element_factory import ElementFactory as ElementFactoryCore
+from core.elements.states.element_state import Displayed
+from elements.button import Button
+from elements.link import Link
+from elements.label import Label
+from elements.check_box import CheckBox
+from elements.combo_box import ComboBox
+from elements.text_box import TextBox
+from elements.radio_button import RadioButton
 
 
 class ElementFactory(ElementFactoryCore):

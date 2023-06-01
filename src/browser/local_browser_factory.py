@@ -6,8 +6,8 @@ from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import IEDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
-from src.browser.browser_name import BrowserName
-from src.browser.base_browser_factory import BaseBrowserFactory
+from browser.browser_name import BrowserName
+from browser.base_browser_factory import BaseBrowserFactory
 
 WD = ty.TypeVar('WD', bound=RemoteWebDriver)
 

@@ -1,12 +1,12 @@
 import typing as ty
 
-from src.browser.browser import Browser
-from src.browser.java_script import JavaScript
-from src.core.elements.highlight_state import HighlightState
-from src.core.utilities.interfaces.action_repeater_interface import IActionRepeater
-from src.core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
-from src.core.elements.states.element_state import Displayed, ExistsInAnyState
-from src.core.elements.base_parent_element import BaseParentElement
+from browser.browser import Browser
+from browser.java_script import JavaScript
+from core.elements.highlight_state import HighlightState
+from core.utilities.interfaces.action_repeater_interface import IActionRepeater
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from core.elements.states.element_state import Displayed, ExistsInAnyState
+from core.elements.base_parent_element import BaseParentElement
 
 T = ty.TypeVar('T')
 

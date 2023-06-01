@@ -1,6 +1,6 @@
 from injector import inject
 
-from src.core.utilities.interfaces.settings_file_interface import ISettingsFile
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
 
 
 class ElementCacheConfiguration:

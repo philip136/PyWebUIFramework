@@ -1,3 +1,17 @@
-**/.idea
-env/
+# IDE
+.idea
+.vscode
+
+# Env
+env
+venv
+
+# Packaging
 __pycache__/
+*.pyc
+*.egg-info
+dist
+
+# Test files
+/.cache/
+/.pytest_cache/

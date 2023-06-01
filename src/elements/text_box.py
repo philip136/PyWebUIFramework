@@ -1,5 +1,5 @@
-from src.core.elements.base_element import BaseElement
-from src.elements.attributes import Attributes
+from core.elements.base_element import BaseElement
+from elements.attributes import Attributes
 from selenium.webdriver.common.keys import Keys
 
 

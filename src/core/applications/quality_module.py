@@ -2,24 +2,24 @@ import logging
 import typing as ty
 from injector import Module, ClassProvider, InstanceProvider, singleton, Binder
 
-from src.core.applications.interfaces.application_interface import IApplication
-from src.core.utilities.interfaces.settings_file_interface import ISettingsFile
-from src.core.utilities.utilities_module import UtilitiesModule
-from src.core.waitings.interfaces.conditional_wait_interface import IConditionalWait
-from src.core.waitings.conditional_wait import ConditionalWait
-from src.core.configurations.element_cache_configuration import ElementCacheConfiguration
-from src.core.configurations.configuration_module import ConfigurationModule
-from src.core.configurations.interfaces.retry_configuration_interface import IRetryConfiguration
-from src.core.configurations.interfaces.timeout_configuration_interface import ITimeoutConfiguration
-from src.core.localization.localization_module import LocalizationModule
-from src.core.localization.managers.interfaces.localization_interface import ILocalizationManager
-from src.core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
-from src.core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
-from src.core.localization.loggers.logger_config import Logger
-from src.core.utilities.interfaces.action_repeater_interface import IActionRepeater
-from src.core.utilities.action_repeater import ActionRepeater
-from src.core.elements.element_finder_interface import IElementFinder
-from src.core.elements.element_finder import ElementFinder
+from core.applications.interfaces.application_interface import IApplication
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
+from core.utilities.utilities_module import UtilitiesModule
+from core.waitings.interfaces.conditional_wait_interface import IConditionalWait
+from core.waitings.conditional_wait import ConditionalWait
+from core.configurations.element_cache_configuration import ElementCacheConfiguration
+from core.configurations.configuration_module import ConfigurationModule
+from core.configurations.interfaces.retry_configuration_interface import IRetryConfiguration
+from core.configurations.interfaces.timeout_configuration_interface import ITimeoutConfiguration
+from core.localization.localization_module import LocalizationModule
+from core.localization.managers.interfaces.localization_interface import ILocalizationManager
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
+from core.localization.loggers.logger_config import Logger
+from core.utilities.interfaces.action_repeater_interface import IActionRepeater
+from core.utilities.action_repeater import ActionRepeater
+from core.elements.element_finder_interface import IElementFinder
+from core.elements.element_finder import ElementFinder
 
 
 class QualityModule(Module):

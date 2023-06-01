@@ -1,9 +1,9 @@
 import typing as ty
 
-from src.browser.java_script import JavaScript
+from browser.java_script import JavaScript
 from selenium.webdriver.remote.webdriver import WebDriver
-from src.core.applications.interfaces.application_interface import IApplication
-from src.core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from core.applications.interfaces.application_interface import IApplication
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
 
 B = ty.TypeVar('B', bound=IApplication)
 WD = ty.TypeVar('WD', bound=WebDriver)

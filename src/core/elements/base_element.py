@@ -4,24 +4,24 @@ from abc import ABC, abstractmethod
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from src.core.elements.states.element_count import ElementCount
-from src.core.elements.states.element_state import Displayed, ExistsInAnyState
-from src.core.elements.base_parent_element import BaseParentElement
-from src.core.configurations.element_cache_configuration import ElementCacheConfiguration
-from src.core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
-from src.core.localization.managers.interfaces.localization_interface import ILocalizationManager
-from src.core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
-from src.core.elements.element_finder_interface import IElementFinder
-from src.core.localization.loggers.logger_config import Logger
-from src.core.elements.states.element_state_provider import ElementStateProvider
-from src.core.waitings.interfaces.conditional_wait_interface import IConditionalWait
-from src.core.elements.base_element_factory import BaseElementFactory
-from src.core.applications.interfaces.application_interface import IApplication
-from src.core.utilities.interfaces.action_repeater_interface import IActionRepeater
-from src.core.elements.base_element_cache_handler import BaseElementCacheHandler
-from src.core.elements.element_cache_handler import ElementCacheHandler
-from src.core.elements.states.cached_element_state_provider import CachedElementStateProvider
-from src.core.elements.actions.js_actions import JsActions
+from core.elements.states.element_count import ElementCount
+from core.elements.states.element_state import Displayed, ExistsInAnyState
+from core.elements.base_parent_element import BaseParentElement
+from core.configurations.element_cache_configuration import ElementCacheConfiguration
+from core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
+from core.localization.managers.interfaces.localization_interface import ILocalizationManager
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from core.elements.element_finder_interface import IElementFinder
+from core.localization.loggers.logger_config import Logger
+from core.elements.states.element_state_provider import ElementStateProvider
+from core.waitings.interfaces.conditional_wait_interface import IConditionalWait
+from core.elements.base_element_factory import BaseElementFactory
+from core.applications.interfaces.application_interface import IApplication
+from core.utilities.interfaces.action_repeater_interface import IActionRepeater
+from core.elements.base_element_cache_handler import BaseElementCacheHandler
+from core.elements.element_cache_handler import ElementCacheHandler
+from core.elements.states.cached_element_state_provider import CachedElementStateProvider
+from core.elements.actions.js_actions import JsActions
 
 T = ty.TypeVar('T')
 TR = ty.TypeVar('TR')

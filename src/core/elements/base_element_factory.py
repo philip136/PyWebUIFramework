@@ -4,15 +4,15 @@ from abc import ABC, abstractmethod
 from injector import inject
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from src.core.elements.states.element_state import Displayed
-from src.core.elements.states.element_count import ElementCount
-from src.core.elements.element_finder_interface import IElementFinder
-from src.core.waitings.interfaces.conditional_wait_interface import IConditionalWait
-from src.core.localization.managers.interfaces.localization_interface import ILocalizationManager
-from src.core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
-from src.core.applications.interfaces.application_interface import IApplication
-from src.core.utilities.interfaces.action_repeater_interface import IActionRepeater
-from src.core.configurations.element_cache_configuration import ElementCacheConfiguration
+from core.elements.states.element_state import Displayed
+from core.elements.states.element_count import ElementCount
+from core.elements.element_finder_interface import IElementFinder
+from core.waitings.interfaces.conditional_wait_interface import IConditionalWait
+from core.localization.managers.interfaces.localization_interface import ILocalizationManager
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from core.applications.interfaces.application_interface import IApplication
+from core.utilities.interfaces.action_repeater_interface import IActionRepeater
+from core.configurations.element_cache_configuration import ElementCacheConfiguration
 
 T = ty.TypeVar('T')
 

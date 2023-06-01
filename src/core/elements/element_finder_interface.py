@@ -4,10 +4,10 @@ from abc import ABC, abstractmethod
 from injector import inject
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from src.core.elements.states.element_state import ExistsInAnyState, Displayed
-from src.core.elements.states.desired_state import DesiredState
-from src.core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
-from src.core.waitings.conditional_wait import ConditionalWait
+from core.elements.states.element_state import ExistsInAnyState, Displayed
+from core.elements.states.desired_state import DesiredState
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from core.waitings.conditional_wait import ConditionalWait
 
 
 class IElementFinder(ABC):

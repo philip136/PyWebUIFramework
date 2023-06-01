@@ -1,7 +1,7 @@
 from injector import inject
 
-from src.core.utilities.interfaces.settings_file_interface import ISettingsFile
-from src.core.configurations.interfaces.retry_configuration_interface import IRetryConfiguration
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
+from core.configurations.interfaces.retry_configuration_interface import IRetryConfiguration
 
 
 class RetryConfiguration(IRetryConfiguration):

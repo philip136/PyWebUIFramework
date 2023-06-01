@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from src.forms.base_form import BaseForm
+from forms.base_form import BaseForm
 from tests.constants import UrlConstants
 
 

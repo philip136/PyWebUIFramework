@@ -2,7 +2,7 @@ import typing as ty
 from abc import ABC
 
 from selenium.webdriver.common.by import By
-from src.browser.py_quality_services import PyQualityServices
+from browser.py_quality_services import PyQualityServices
 
 
 class BaseForm(ABC):

@@ -1,9 +1,9 @@
 import typing as ty
 
-from src.core.localization.managers.interfaces.localization_interface import ILocalizationManager
-from src.core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
-from src.core.localization.managers.localization_manager import LocalizationManager
-from src.core.localization.loggers.localized_logger import LocalizationLogger
+from core.localization.managers.interfaces.localization_interface import ILocalizationManager
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from core.localization.managers.localization_manager import LocalizationManager
+from core.localization.loggers.localized_logger import LocalizationLogger
 
 
 class LocalizationModule:

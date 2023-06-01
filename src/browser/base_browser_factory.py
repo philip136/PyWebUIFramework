@@ -1,12 +1,12 @@
 from abc import ABC
 from injector import inject
 
-from src.browser.browser import Browser
-from src.browser.interfaces.browser_factory_interface import IBaseBrowserFactory
-from src.core.utilities.interfaces.action_repeater_interface import IActionRepeater
-from src.core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
-from src.core.configurations.interfaces.browser_profile_interface import IBrowserProfile
-from src.core.configurations.interfaces.timeout_configuration_interface import ITimeoutConfiguration
+from browser.browser import Browser
+from browser.interfaces.browser_factory_interface import IBaseBrowserFactory
+from core.utilities.interfaces.action_repeater_interface import IActionRepeater
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from core.configurations.interfaces.browser_profile_interface import IBrowserProfile
+from core.configurations.interfaces.timeout_configuration_interface import ITimeoutConfiguration
 from selenium.common.exceptions import SessionNotCreatedException, WebDriverException, TimeoutException
 
 

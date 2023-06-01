@@ -1,7 +1,7 @@
 import typing as ty
 
 from selenium.webdriver.remote.webelement import WebElement
-from src.core.elements.base_element_cache_handler import BaseElementCacheHandler
+from core.elements.base_element_cache_handler import BaseElementCacheHandler
 
 
 class ElementCacheHandler(BaseElementCacheHandler):

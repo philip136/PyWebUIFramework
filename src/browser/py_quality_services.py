@@ -2,15 +2,15 @@ import typing as ty
 from threading import local
 
 from injector import Injector
-from src.browser.browser import Browser
-from src.browser.browser_module import BrowserModule
-from src.browser.base_browser_factory import BaseBrowserFactory
-from src.browser.local_browser_factory import LocalBaseBrowserFactory
-from src.configuration.browser_profile import BrowserProfile
-from src.core.applications.quality_services import QualityServices
-from src.core.waitings.conditional_wait import ConditionalWait
-from src.elements.element_factory import ElementFactory
-from src.core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from browser.browser import Browser
+from browser.browser_module import BrowserModule
+from browser.base_browser_factory import BaseBrowserFactory
+from browser.local_browser_factory import LocalBaseBrowserFactory
+from configuration.browser_profile import BrowserProfile
+from core.applications.quality_services import QualityServices
+from core.waitings.conditional_wait import ConditionalWait
+from elements.element_factory import ElementFactory
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
 
 T = ty.TypeVar('T', bound=QualityServices)
 BF = ty.TypeVar('BF', bound=BaseBrowserFactory)

@@ -1,7 +1,7 @@
 from injector import inject
 
-from src.core.utilities.interfaces.settings_file_interface import ISettingsFile
-from src.core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
+from core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
 
 
 class LoggerConfiguration(ILoggerConfiguration):

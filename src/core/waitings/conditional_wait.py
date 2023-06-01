@@ -5,9 +5,9 @@ from injector import inject
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.common.exceptions import StaleElementReferenceException
-from src.core.waitings.interfaces.conditional_wait_interface import IConditionalWait
-from src.core.configurations.interfaces.timeout_configuration_interface import ITimeoutConfiguration
-from src.core.applications.interfaces.application_interface import IApplication
+from core.waitings.interfaces.conditional_wait_interface import IConditionalWait
+from core.configurations.interfaces.timeout_configuration_interface import ITimeoutConfiguration
+from core.applications.interfaces.application_interface import IApplication
 
 T = ty.TypeVar('T')
 

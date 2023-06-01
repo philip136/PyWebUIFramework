@@ -1,6 +1,6 @@
 import typing as ty
 
-from src.core.elements.states.element_state import ExistsInAnyState, Displayed
+from core.elements.states.element_state import ExistsInAnyState, Displayed
 
 
 class DesiredState:

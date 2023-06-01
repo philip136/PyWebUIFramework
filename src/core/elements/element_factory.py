@@ -2,10 +2,10 @@ import typing as ty
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from src.core.elements.base_element_factory import BaseElementFactory
-from src.core.elements.states.element_state import Displayed
-from src.core.elements.states.element_count import ElementCount
-from src.core.elements.base_parent_element import BaseParentElement
+from core.elements.base_element_factory import BaseElementFactory
+from core.elements.states.element_state import Displayed
+from core.elements.states.element_count import ElementCount
+from core.elements.base_parent_element import BaseParentElement
 
 T = ty.TypeVar('T')
 

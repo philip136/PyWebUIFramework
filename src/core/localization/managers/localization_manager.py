@@ -3,11 +3,11 @@ from itertools import chain
 from logging import Logger
 from injector import inject
 
-from src.core.localization.managers.interfaces.localization_interface import ILocalizationManager
-from src.core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
-from src.core.utilities.interfaces.settings_file_interface import ISettingsFile
-from src.core.utilities.json_settings_file import JsonSettingsFile
-from src.core.utilities.resource_file import ResourceFile
+from core.localization.managers.interfaces.localization_interface import ILocalizationManager
+from core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
+from core.utilities.json_settings_file import JsonSettingsFile
+from core.utilities.resource_file import ResourceFile
 
 
 class LocalizationManager(ILocalizationManager):

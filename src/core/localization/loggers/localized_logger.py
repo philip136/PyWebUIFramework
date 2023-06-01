@@ -1,9 +1,9 @@
 from injector import inject
 from logging import Logger
 
-from src.core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
-from src.core.localization.managers.interfaces.localization_interface import ILocalizationManager
-from src.core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from core.localization.managers.interfaces.localization_interface import ILocalizationManager
+from core.localization.configurations.interfaces.logger_configuration_interface import ILoggerConfiguration
 
 
 class LocalizationLogger(ILocalizedLogger):

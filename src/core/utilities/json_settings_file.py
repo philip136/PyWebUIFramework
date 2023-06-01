@@ -6,8 +6,8 @@ import typing as ty
 from jsonpath_ng import DatumInContext
 from jsonpath_ng import parse
 
-from src.core.utilities.interfaces.settings_file_interface import ISettingsFile
-from src.core.utilities.resource_file import ResourceFile
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
+from core.utilities.resource_file import ResourceFile
 
 
 class JsonSettingsFile(ISettingsFile):

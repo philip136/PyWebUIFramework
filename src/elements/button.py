@@ -1,4 +1,4 @@
-from src.core.elements.base_element import BaseElement
+from core.elements.base_element import BaseElement
 
 
 class Button(BaseElement):

@@ -5,15 +5,15 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.ie.options import Options as IExplorerOptions
 from selenium.webdriver.edge.options import Options as EdgeOptions
 
-from src.browser.browser_name import BrowserName
-from src.configuration.driver_settings.base_driver_settings import BaseDriverSettings
-from src.configuration.driver_settings.chrome_settings import ChromeSettings
-from src.configuration.driver_settings.firefox_settings import FirefoxSettings
-from src.configuration.driver_settings.iexplorer_settings import IExplorerSettings
-from src.configuration.driver_settings.edge_settings import EdgeSettings
-from src.core.configurations.interfaces.browser_profile_interface import IBrowserProfile
-from src.core.utilities.interfaces.settings_file_interface import ISettingsFile
-from src.core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
+from browser.browser_name import BrowserName
+from configuration.driver_settings.base_driver_settings import BaseDriverSettings
+from configuration.driver_settings.chrome_settings import ChromeSettings
+from configuration.driver_settings.firefox_settings import FirefoxSettings
+from configuration.driver_settings.iexplorer_settings import IExplorerSettings
+from configuration.driver_settings.edge_settings import EdgeSettings
+from core.configurations.interfaces.browser_profile_interface import IBrowserProfile
+from core.utilities.interfaces.settings_file_interface import ISettingsFile
+from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
 
 
 class BrowserProfile(IBrowserProfile):

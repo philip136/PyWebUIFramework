@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from src.core.elements.states.element_state import Displayed
-from src.core.elements.states.element_count import ElementCount
+from core.elements.states.element_state import Displayed
+from core.elements.states.element_count import ElementCount
 
 T = ty.TypeVar('T')
 

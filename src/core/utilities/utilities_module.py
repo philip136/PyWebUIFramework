@@ -1,5 +1,5 @@
-from src.core.utilities.json_settings_file import JsonSettingsFile
-from src.core.utilities.action_repeater import ActionRepeater
+from core.utilities.json_settings_file import JsonSettingsFile
+from core.utilities.action_repeater import ActionRepeater
 
 
 class UtilitiesModule:

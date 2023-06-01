@@ -2,8 +2,8 @@ import typing as ty
 from abc import ABC, abstractmethod
 
 from selenium.webdriver.common.by import By
-from src.core.elements.element_finder_interface import IElementFinder
-from src.core.waitings.interfaces.conditional_wait_interface import IConditionalWait
+from core.elements.element_finder_interface import IElementFinder
+from core.waitings.interfaces.conditional_wait_interface import IConditionalWait
 
 
 class BaseElementStateProvider(ABC):

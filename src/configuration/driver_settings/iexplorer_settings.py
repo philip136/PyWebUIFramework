@@ -1,5 +1,5 @@
 from selenium.webdriver.ie.options import Options
-from src.configuration.driver_settings.base_driver_settings import BaseDriverSettings
+from configuration.driver_settings.base_driver_settings import BaseDriverSettings
 
 
 class IExplorerSettings(BaseDriverSettings):
