@@ -1,16 +1,14 @@
 import os
-from get_project_root import root_path
 from setuptools import setup, find_packages
+import pkutils
 
 # PATH VARIABLES
 SOURCE_NAME = "src"
-ROOT_DIR = root_path(ignore_cwd=True)
-FRAMEWORK_NAME = os.path.basename(ROOT_DIR)
-REQUIREMENTS_FILE = os.path.join(ROOT_DIR, "requirements.txt")
+FRAMEWORK_NAME = "PyWebUIFramework"
 PATH_TO_RESOURCES = os.path.join("core", "resources")
 
 # PROJECT VARIABLES
-CURRENT_VERSION = "0.3.3"
+CURRENT_VERSION = "1.6"
 LICENSE_TYPE = "MIT"
 
 # AUTHOR VARIABLES
@@ -20,14 +18,7 @@ LINK_TO_REPO = "https://github.com/philip136/PyWebUIFramework"
 
 # PACKAGE VARIABLES
 ALL_SOURCE_PACKAGES = find_packages(SOURCE_NAME)
-DEPENDENCIES = []
-
-
-if os.path.exists(REQUIREMENTS_FILE):
-    with open(REQUIREMENTS_FILE) as req_file:
-        DEPENDENCIES.extend([dep_name.strip("\n") for dep_name in req_file.readlines()])
-else:
-    raise FileNotFoundError("Requirements file has not been found")
+DEPENDENCIES = list(pkutils.parse_requirements("requirements.txt"))
 
 
 setup(
