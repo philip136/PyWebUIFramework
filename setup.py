@@ -37,9 +37,9 @@ setup(
         'jsonpath-ng==1.5.3',
         'loguru==0.5.3',
         'pytest==6.2.5',
-        'selenium==3.141.0',
+        'selenium==4.9.1',
         'typing-extensions==3.10.0.2',
-        'webdriver-manager==3.4.2',
+        'webdriver-manager==3.8.6',
         'urllib3==1.26.6',
         'get-project-root==0.2'
     ]
