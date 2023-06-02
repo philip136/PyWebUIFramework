@@ -1,6 +1,5 @@
 import os
 from setuptools import setup, find_packages
-import pkutils
 
 # PATH VARIABLES
 SOURCE_NAME = "src"
@@ -8,7 +7,7 @@ FRAMEWORK_NAME = "PyWebUIFramework"
 PATH_TO_RESOURCES = os.path.join("core", "resources")
 
 # PROJECT VARIABLES
-CURRENT_VERSION = "1.6"
+CURRENT_VERSION = "2.0"
 LICENSE_TYPE = "MIT"
 
 # AUTHOR VARIABLES
@@ -18,7 +17,6 @@ LINK_TO_REPO = "https://github.com/philip136/PyWebUIFramework"
 
 # PACKAGE VARIABLES
 ALL_SOURCE_PACKAGES = find_packages(SOURCE_NAME)
-DEPENDENCIES = list(pkutils.parse_requirements("requirements.txt"))
 
 
 setup(
@@ -33,5 +31,16 @@ setup(
     include_package_data=True,
     url=LINK_TO_REPO,
     keywords=FRAMEWORK_NAME,
-    install_requires=DEPENDENCIES
+    install_requires=[
+        'flake8==3.9.2',
+        'injector==0.18.4',
+        'jsonpath-ng==1.5.3',
+        'loguru==0.5.3',
+        'pytest==6.2.5',
+        'selenium==3.141.0',
+        'typing-extensions==3.10.0.2',
+        'webdriver-manager==3.4.2',
+        'urllib3==1.26.6',
+        'get-project-root==0.2'
+    ]
 )

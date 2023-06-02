@@ -8,4 +8,3 @@ typing-extensions==3.10.0.2
 webdriver-manager==3.4.2
 urllib3==1.26.6
 get-project-root==0.2
-pkutils==3.0.2
