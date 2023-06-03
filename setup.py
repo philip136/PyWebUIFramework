@@ -4,10 +4,10 @@ from setuptools import setup, find_packages
 # PATH VARIABLES
 SOURCE_NAME = "src"
 FRAMEWORK_NAME = "PyWebUIFramework"
-PATH_TO_RESOURCES = os.path.join("core", "resources")
+PATH_TO_RESOURCES = os.path.join(SOURCE_NAME, "core", "resources.*")
 
 # PROJECT VARIABLES
-CURRENT_VERSION = "2.2"
+CURRENT_VERSION = "2.5"
 LICENSE_TYPE = "MIT"
 
 # AUTHOR VARIABLES
@@ -27,7 +27,6 @@ setup(
     author_email=AUTHOR_EMAIL,
     packages=ALL_SOURCE_PACKAGES,
     package_dir={"": SOURCE_NAME},
-    package_data={"": [PATH_TO_RESOURCES]},
     include_package_data=True,
     url=LINK_TO_REPO,
     keywords=FRAMEWORK_NAME,
@@ -36,7 +35,6 @@ setup(
         'injector==0.18.4',
         'jsonpath-ng==1.5.3',
         'loguru==0.5.3',
-        'pytest==6.2.5',
         'selenium==4.9.1',
         'typing-extensions==3.10.0.2',
         'webdriver-manager==3.8.6',

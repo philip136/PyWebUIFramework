@@ -35,10 +35,6 @@ class Browser(IApplication):
         return self.__browser_profile
 
     @property
-    def browser_profile(self):
-        return self.__browser_profile
-
-    @property
     def driver(self) -> WD:
         """Provides Selenium WebDriver instance for current browser session.
         :return: WebDriver manager.

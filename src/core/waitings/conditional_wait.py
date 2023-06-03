@@ -37,12 +37,9 @@ class ConditionalWait(IConditionalWait):
         wait_timeout = self.__resolve_condition_timeout(timeout)
         check_interval = self.__resolve_polling_interval(polling_interval)
         ignored_exceptions = (exceptions_to_ignore if exceptions_to_ignore else [StaleElementReferenceException])
-        self._application.set_implicit_wait_timeout(0)
+        self._application.set_implicit_wait_timeout(self._timeout_configuration.implicit)
         wait = WebDriverWait(self._application.driver, wait_timeout, check_interval, ignored_exceptions)
-        try:
-            return wait.until(condition, message)
-        finally:
-            self._application.set_implicit_wait_timeout(self._timeout_configuration.implicit)
+        return wait.until(condition, message)
 
     def wait_for(self, condition: ty.Callable[..., bool], timeout: int = 0, polling_interval: int = 0,
                  exceptions_to_ignore=None) -> bool:
@@ -106,8 +103,8 @@ class ConditionalWait(IConditionalWait):
                 return False
             raise
 
-    def __resolve_condition_timeout(self, timeout: int) -> int:
+    def __resolve_condition_timeout(self, timeout: ty.Optional[int] = None) -> int:
         return timeout if timeout is not None else self._timeout_configuration.condition
 
-    def __resolve_polling_interval(self, polling_interval: int) -> int:
+    def __resolve_polling_interval(self, polling_interval: ty.Optional[int] = None) -> int:
         return polling_interval if polling_interval is not None else self._timeout_configuration.polling_interval
