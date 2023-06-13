@@ -14,7 +14,7 @@ class IBaseBrowserFactory(ABC):
         :rtype: Browser.
         """
         pass
-    
+
     @abstractmethod
     def get_driver(self) -> WD:
         """Abstract method for selecting the required driver (Firefox, Chrome and etc).

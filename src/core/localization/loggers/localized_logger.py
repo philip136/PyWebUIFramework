@@ -14,7 +14,7 @@ class LocalizationLogger(ILocalizedLogger):
         self._localization_manager = localization_manager
         self._configuration = configuration
         self._logger = logger
-    
+
     def __localize_message(self, message_key: str, *message_args) -> str:
         """Get localization message from json file.
         :param message_key: Key in resource file.
@@ -75,4 +75,3 @@ class LocalizationLogger(ILocalizedLogger):
         :param logger_kwargs: Additional arguments for logger.
         """
         self._logger.fatal(self.__localize_message(message, *message_args))
-

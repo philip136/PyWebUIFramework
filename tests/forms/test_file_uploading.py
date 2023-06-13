@@ -5,7 +5,7 @@ from tests.the_internet_forms.file_uploader_form import FileUploaderForm
 
 class TestFileUploading:
     def test_uploading(self, browser):
-        browser.go_to(UrlConstants.THE_INTERNET + 'upload')
+        browser.go_to(f"{UrlConstants.THE_INTERNET}upload")
 
         file_uploader_form = FileUploaderForm()
         filename = file_uploader_form.filename

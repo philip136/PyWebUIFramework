@@ -55,7 +55,7 @@
     }
   },
   "timeouts": {
-    "timeoutImplicit" : 0,
+    "timeoutImplicit" : 10,
     "timeoutCondition" : 30,
     "timeoutScript" : 10,
     "timeoutPageLoad" : 15,

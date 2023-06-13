@@ -7,3 +7,4 @@ typing-extensions==3.10.0.2
 webdriver-manager==3.8.6
 urllib3==1.26.6
 get-project-root==0.2
+importlib-metadata==4.13.0

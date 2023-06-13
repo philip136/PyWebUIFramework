@@ -50,3 +50,11 @@ class ITimeoutConfiguration(ABC):
         :rtype: int.
         """
         pass
+
+    @property
+    @abstractmethod
+    def page_load(self) -> int:
+        """Get the default timeout for page loading.
+        :return: Get timeout for page load
+        :rtype: int
+        """

@@ -26,4 +26,3 @@ class LoggerConfiguration(ILoggerConfiguration):
         :rtype: bool.
         """
         return bool(self._settings_file.get_value_or_default('logger.logPageSource', True))
-

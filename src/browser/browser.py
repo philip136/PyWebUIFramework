@@ -1,6 +1,5 @@
 import typing as ty
 
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.remote.webdriver import WebDriver
 from core.applications.interfaces.application_interface import IApplication
@@ -11,6 +10,7 @@ from core.waitings.conditional_wait import ConditionalWait
 from browser.browser_tab_navigation import BrowserTabNavigation
 from browser.java_script import JavaScript
 from browser.alert_actions import AlertActions
+from core.elements.base_element import BaseParentElement
 
 WD = ty.TypeVar('WD', bound=WebDriver)
 
@@ -165,11 +165,11 @@ class Browser(IApplication):
 
         self.__localized_logger.localization_manager.get_localized_message('loc.browser.page.timeout')
 
-    def switch_to_frame(self, element: WebElement) -> None:
+    def switch_to_frame(self, element: BaseParentElement) -> None:
         """Switch to iframe.
         :param element: IFrame element.
         """
-        self.__driver.switch_to.frame(element)
+        self.__driver.switch_to.frame(element.get_element())
 
     @property
     def tabs(self) -> BrowserTabNavigation:

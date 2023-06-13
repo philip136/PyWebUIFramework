@@ -6,7 +6,6 @@ from core.configurations.interfaces.timeout_configuration_interface import ITime
 
 class TimeoutConfigurationCore(ITimeoutConfiguration):
     """Core class for setting timeouts."""
-    
     @inject
     def __init__(self, settings_file: ISettingsFile):
         """Provides a SettingsFile to select the required configuration settings."""
@@ -31,4 +30,3 @@ class TimeoutConfigurationCore(ITimeoutConfiguration):
     def command(self) -> int:
         """Get WebDriver Command timeout."""
         return self._get_config_value("timeouts.timeoutCommand")
-

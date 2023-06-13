@@ -6,5 +6,3 @@ class AlertActions(Enum):
 
     ACCEPT = 'accept'
     DECLINE = 'decline'
-
-
