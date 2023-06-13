@@ -13,7 +13,7 @@ class ActionRepeater(IActionRepeater):
     def __init__(self, retry_configuration: IRetryConfiguration):
         """Initialize repeater with configuration."""
         self._retry_configuration = retry_configuration
-        
+
     def do_with_retry(self, function: ty.Callable[..., T], handled_exceptions: ty.List[ty.Type[Exception]] = []) -> T:
         """
         Try to execute function repeatedly.

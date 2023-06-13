@@ -1,19 +1,20 @@
 import typing as ty
 
-from browser.browser import Browser
 from browser.java_script import JavaScript
 from core.elements.highlight_state import HighlightState
+from core.applications.interfaces.application_interface import IApplication
 from core.utilities.interfaces.action_repeater_interface import IActionRepeater
 from core.localization.loggers.interfaces.localized_logger_interface import ILocalizedLogger
 from core.elements.states.element_state import Displayed, ExistsInAnyState
 from core.elements.base_parent_element import BaseParentElement
 
 T = ty.TypeVar('T')
+TBrowser = ty.TypeVar("TBrowser", bound=IApplication)
 
 
 class JsActions:
     def __init__(self, element: BaseParentElement, element_type: ty.Type[ty.Union[Displayed, ExistsInAnyState]],
-                 localized_logger: ILocalizedLogger, action_repeater: IActionRepeater, browser: Browser):
+                 localized_logger: ILocalizedLogger, action_repeater: IActionRepeater, browser: TBrowser):
         self.__element = element.get_element()
         self.__element_type = element_type
         self.__name = element.name
@@ -22,8 +23,8 @@ class JsActions:
         self.__browser = browser
 
     def highlight_element(self, highlight_state: HighlightState = HighlightState.DEFAULT):
-        if (self.__browser.browser_profile.is_element_highlight_enabled or
-                highlight_state.value == HighlightState.HIGHLIGHT.value):
+        if any([self.__browser.browser_profile.is_element_highlight_enabled,
+                highlight_state.value == HighlightState.HIGHLIGHT.value]):
             self.__execute_script(JavaScript.BORDER_ELEMENT.get_script(), self.__element)
 
     def click(self) -> None:
@@ -60,4 +61,3 @@ class JsActions:
         :param args: Arguments, which will be provided to template of localized message.
         """
         return self.__localized_logger.info_element_action(self.__element_type, self.__name, message_key, *args)
-

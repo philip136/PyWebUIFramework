@@ -11,8 +11,7 @@ class FileDownloaderForm(BaseForm):
         super(FileDownloaderForm, self).__init__((By.ID, 'content'), 'File Downloader')
 
     def get_link_download(self, filename: str) -> Link:
-        return self._get_element_factory().get_link((By.XPATH, self.__link_template % filename),
-                                                    'Download file %s' % filename)
+        return self._element_factory.get_link((By.XPATH, self.__link_template % filename), f'Download file {filename}')
 
     @property
     def filename(self) -> str:

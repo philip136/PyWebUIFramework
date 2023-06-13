@@ -111,4 +111,3 @@ class BaseElementStateProvider(ABC):
         :raises: WebDriverTimeoutException when timeout exceeded and element is not clickable.
         """
         pass
-

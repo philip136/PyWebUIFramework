@@ -8,7 +8,7 @@ class RetryConfiguration(IRetryConfiguration):
     @inject
     def __init__(self, settings_file: ISettingsFile):
         self._settings_file = settings_file
-        
+
     @property
     def number(self) -> int:
         """Get the number of attempts to retry.
